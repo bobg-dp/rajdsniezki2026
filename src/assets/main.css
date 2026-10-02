@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand – wyciągnięte z logo Rajdu Śnieżki */
+  --color-rally-navy: #18364e;
+  --color-rally-navy-deep: #0e2133;
+  --color-rally-navy-ink: #081522;
+  --color-rally-steel: #24455f;
+  --color-rally-orange: #e67730;
+  --color-rally-orange-dark: #c25a17;
+  --color-rally-orange-light: #f79b5c;
+  --color-rally-snow: #e8eef3;
+  --color-rally-snow-dim: #c0ccd6;
+
+  --font-family-display: 'Saira Condensed', 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+  --font-family-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-family-signature: 'Great Vibes', 'Brush Script MT', cursive;
+
+  /* Rajdowe krzywe czasowe – szybkie wejście, twarde wyhamowanie */
+  --ease-rally: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-launch: cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: #fff;
+  color: var(--color-rally-navy);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-family-display);
+}
+
+.font-signature {
+  font-family: var(--font-family-signature);
+}
+
+/* Pochylenie typografii zgodne z italiką w logo. */
+.text-rally-slant {
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+/* Asfalt – subtelna faktura nawierzchni pod ciemnymi sekcjami. */
+.surface-asphalt {
+  background-color: var(--color-rally-navy-deep);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(230, 119, 48, 0.1) 0%, transparent 42%),
+    radial-gradient(circle at 85% 8%, rgba(232, 238, 243, 0.06) 0%, transparent 38%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.016) 0px,
+      rgba(255, 255, 255, 0.016) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+}
+
+/* Smugi prędkości – pojedyncza kreska ciągnąca się za obiektem. */
+@keyframes rally-streak {
+  0% {
+    transform: translate3d(-120%, 0, 0) scaleX(0.3);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(140%, 0, 0) scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* Odsłonięcie treści „zza maski” – szybki wjazd z lekkim poślizgiem. */
+@keyframes rally-slide-in {
+  from {
+    transform: translate3d(-2.5rem, 0, 0) skewX(-6deg);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) skewX(0deg);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

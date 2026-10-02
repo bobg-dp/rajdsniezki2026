@@ -1,0 +1,94 @@
+{
+  "root": [
+    {
+      "id": "5dcafe5c-3ef3-4443-8d5c-b0d233d8ddd5",
+      "name": "__SPECIAL_PRIVATE_DOCUMENTS__",
+      "type": "Folder",
+      "sort_order": 0,
+      "created_at": "2026-03-14T14:58:08Z",
+      "updated_at": "2026-03-14T14:58:08Z",
+      "common": true
+    },
+    {
+      "id": "f1f51114-05cd-4716-913e-3da00ae8edf8",
+      "name": "Komunikaty",
+      "children": [
+        {
+          "id": "mock-kom-1",
+          "name": "Komunikat nr 1",
+          "type": "Text",
+          "text": "Biuro rajdu będzie otwarte od godziny 07:00.",
+          "sort_order": 0,
+          "created_at": "2026-05-18T07:00:00Z",
+          "updated_at": "2026-05-18T07:00:00Z"
+        },
+        {
+          "id": "mock-kom-folder-archiwum",
+          "name": "Archiwum komunikatów",
+          "type": "Folder",
+          "sort_order": 1,
+          "created_at": "2026-05-18T07:05:00Z",
+          "updated_at": "2026-05-18T07:05:00Z",
+          "children": [
+            {
+              "id": "mock-kom-arch-1",
+              "name": "Komunikat archiwalny",
+              "type": "Text",
+              "text": "To jest przykładowy komunikat zagnieżdżony w folderze.",
+              "sort_order": 0,
+              "created_at": "2026-05-10T10:00:00Z",
+              "updated_at": "2026-05-10T10:00:00Z"
+            }
+          ]
+        }
+      ],
+      "type": "Folder",
+      "sort_order": 0,
+      "created_at": "2026-05-15T15:57:41Z",
+      "updated_at": "2026-05-15T15:57:41Z",
+      "event_id": "2c374b62-e953-49b5-9562-42d05991eb2c"
+    },
+    {
+      "id": "dc5b4d82-301c-4396-8373-3e667719c68b",
+      "name": "Dokumenty ZSS",
+      "children": [
+        {
+          "id": "mock-zss-1",
+          "name": "Decyzja ZSS nr 1",
+          "type": "PDF",
+          "url": "https://example.com/decyzja-zss-1.pdf",
+          "orig_file": "Decyzja ZSS nr 1.pdf",
+          "sort_order": 0,
+          "created_at": "2026-05-18T11:00:00Z",
+          "updated_at": "2026-05-18T11:15:00Z"
+        }
+      ],
+      "type": "Folder",
+      "sort_order": 1,
+      "created_at": "2026-05-15T15:58:08Z",
+      "updated_at": "2026-05-15T15:58:08Z",
+      "event_id": "2c374b62-e953-49b5-9562-42d05991eb2c"
+    },
+    {
+      "id": "95e4259b-387e-46fe-8e80-556e281653ce",
+      "name": "Regulamin Uzupełniający RPP",
+      "type": "PDF",
+      "url": "https://app-cdn.sportity.com/c5effb27-6d96-4b15-91a9-bedaf3eb2200/68084332-2cfd-4cdf-bca7-7d552eae263b_Regulamin Uzupełniający RPP.pdf",
+      "orig_file": "Regulamin Uzupełniający RPP.pdf",
+      "sort_order": 5,
+      "created_at": "2026-05-15T16:08:52Z",
+      "updated_at": "2026-05-16T14:15:43Z",
+      "event_id": "2c374b62-e953-49b5-9562-42d05991eb2c"
+    },
+    {
+      "id": "d85432b3-78ff-46bf-9a6b-3f8e298d58fa",
+      "name": "Zapisy",
+      "type": "Text",
+      "text": "Otwarcie listy zgłoszeń 18.05.2026r. godzina 0:00",
+      "sort_order": 6,
+      "created_at": "2026-05-17T16:19:18Z",
+      "updated_at": "2026-05-17T16:19:18Z",
+      "event_id": "2c374b62-e953-49b5-9562-42d05991eb2c"
+    }
+  ]
+}
