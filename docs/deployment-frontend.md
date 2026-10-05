@@ -1,18 +1,21 @@
-# Frontend Deployment On A Static Host
+# Frontend Deployment On Cloudflare
 
 The frontend is a fully prerendered site. `npm run build` runs
 `scripts/generate-sitemap.js` and then `vite-ssg build`, which writes one HTML
-file per route into `dist/`. There is no server-side rendering at request time,
-so the static host only serves files from a CDN.
+file per route into `dist/`. Nothing is rendered at request time, so the host
+only serves files from a CDN.
 
 The backend stays on the VPS, as described in `deployment-backend-vps.md`. The
-browser calls it directly over an absolute URL, so the static host never needs
-to proxy `/api`.
+browser calls it directly over an absolute URL, so the host never proxies
+`/api`.
 
-## Recommended Host: Cloudflare Pages
+## Target: Workers With Static Assets
 
-Both Cloudflare Pages and Netlify serve this project without any code change.
-Cloudflare Pages is the better fit here:
+Cloudflare directs new projects to Workers rather than Pages; Pages still works
+but no longer receives feature work. A Worker serving static assets covers this
+site completely, so that is the target here.
+
+Why Cloudflare over Netlify for this project:
 
 - Bandwidth is unmetered. This site ships heavy images (the news poster is
   ~370 kB, `rmp.jpg` and `rsmds.jpg` are ~1 MB each) and rally traffic spikes
@@ -21,33 +24,67 @@ Cloudflare Pages is the better fit here:
 - The API domain on the VPS can go behind the same Cloudflare account, which
   adds TLS, caching and DDoS protection in front of the Node process.
 
-Netlify remains a valid fallback and the settings below are nearly identical.
+One constraint to know up front: a Worker can only take a custom domain that is
+a zone in Cloudflare DNS. Pages could attach domains hosted elsewhere; Workers
+cannot. The nameservers for `rajdsniezki.pl` therefore have to point at
+Cloudflare.
 
-## Build Settings
+## Repository Configuration
+
+`wrangler.jsonc` holds everything the deploy needs:
+
+- `assets.directory` is `./dist`.
+- `assets.not_found_handling` is `404-page`, so unmatched paths get the
+  prerendered `dist/404.html` with a 404 status.
+- There is no `main` and no `assets.binding`. This is an assets-only Worker;
+  a binding without `main` is rejected by Wrangler.
+- `html_handling` is left at its default, which serves `/kontakt` from
+  `kontakt.html`.
+
+`wrangler` is a devDependency so the version is pinned. Workers Builds uses the
+Wrangler version from `package.json`, which keeps CI from silently jumping to a
+new major.
+
+Validate changes to that file locally with:
+
+```sh
+npx wrangler deploy --dry-run
+```
+
+## Workers Builds Settings
 
 | Setting | Value |
 | --- | --- |
 | Build command | `npm run build` |
-| Output directory | `dist` |
-| Node version | from `.nvmrc` (22) |
-| Install command | default (`npm ci`) |
+| Deploy command | `npx wrangler deploy` |
+| Preview command | `npx wrangler preview` |
+| Root directory | empty |
 
-`public/_headers` is copied into `dist/` during the build and is read by both
-platforms. It sets security headers and cache lifetimes; see the comments in
-that file before editing.
+Node version comes from `.nvmrc` (22). If a build picks a different version,
+add a `NODE_VERSION` build variable set to `22`.
 
-## Required Build Environment Variable
+## Required Build Variable
 
 ```env
 VITE_API_BASE_URL=https://rajdsniezki.rallydevil.com
 ```
 
-This is baked into the bundle at build time, not read at runtime. Without it
-the frontend requests `/api/...` on its own domain, where nothing is listening,
-and the visit counter plus notice board stop working. The pages themselves
-still render, because both services swallow fetch errors — so a missing
-variable fails quietly. Set it in the host's build settings before the first
-deploy and redeploy after any change.
+This goes in `Settings` → `Builds` → build variables, **not** in the Worker's
+runtime `Variables & Secrets`. Build variables exist only while the build runs,
+which is exactly what is needed: Vite inlines the value into the bundle at build
+time and nothing reads it at runtime.
+
+Without it the frontend requests `/api/...` on its own domain, where nothing is
+listening, and the visit counter plus notice board stop working. The pages still
+render, because both services swallow fetch errors — so a missing variable fails
+quietly. Set it before the first deploy and redeploy after any change.
+
+## Static Asset Headers
+
+`public/_headers` is copied into `dist/` during the build. Workers parses it and
+applies the rules to static asset responses; the file itself is not served. It
+sets security headers and cache lifetimes — read the comments in it before
+editing, especially the note about overlapping rules.
 
 ## Backend Side Of The Deploy
 
@@ -58,28 +95,28 @@ The backend compares origins literally, with no wildcard support:
 CORS_ALLOWED_ORIGINS=https://rajdsniezki.pl,https://www.rajdsniezki.pl
 ```
 
-Preview deployments get generated subdomains (`*.pages.dev` on Cloudflare,
-`*.netlify.app` on Netlify). They are not covered by the entries above, so in
-previews the counter and notice board will fail while the rest of the page
-works. Add a specific preview origin to the list when a preview needs live API
+Preview builds get their own generated URL, which is not covered by the entries
+above. In previews the counter and notice board will fail while the rest of the
+page works. Add the preview origin to the list when a preview needs live API
 data.
 
 ## Custom Domain
 
-1. Point `rajdsniezki.pl` at the host (Cloudflare Pages: add the domain in the
-   project; if DNS is already in Cloudflare the records are created for you).
-2. Keep the API on its own hostname on the VPS so the two deploys stay
+1. Add `rajdsniezki.pl` to Cloudflare as a zone and change the nameservers at
+   the registrar.
+2. Attach the domain to the Worker under its `Domains & Routes` settings, for
+   both the apex and `www`.
+3. Keep the API on its own hostname on the VPS so the two deploys stay
    independent.
-3. `SITE_URL` in `src/data/eventConfig.js` drives canonical URLs, the sitemap
+4. `SITE_URL` in `src/data/eventConfig.js` drives canonical URLs, the sitemap
    and schema.org output. It must match the production domain exactly.
 
 ## Error Page
 
 The catch-all route in `src/router/index.js` renders `views/NotFoundView.vue`.
-`includedRoutes` in `src/main.js` prerenders it under `/404`, which makes
-`dist/404.html`. Cloudflare Pages and Netlify both serve that file, with a 404
-status, for any path that has no matching file. The page is marked
-`noindex,nofollow` and is not listed in the sitemap.
+`includedRoutes` in `src/main.js` prerenders it under `/404`, which produces
+`dist/404.html`. The page is marked `noindex,nofollow` and is not listed in the
+sitemap.
 
 If a route is ever added without a prerendered HTML file, visitors will land on
 this page instead, so check `dist/` after adding routes.
