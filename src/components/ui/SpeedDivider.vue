@@ -66,7 +66,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 const props = defineProps({
   fromColor: { type: String, default: "#ffffff" },
   toColor: { type: String, default: "#0e2133" },
-  accentColor: { type: String, default: "#e67730" },
+  accentColor: { type: String, default: "#f76003" },
   direction: { type: String, default: "right" },
   height: { type: String, default: "clamp(64px, 9vw, 120px)" },
 });

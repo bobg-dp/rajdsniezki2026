@@ -13,12 +13,12 @@ export const SITE_URL = "https://rajdsniezki.pl";
 export const CONTACT_EMAIL = "biuro@rajdsniezki.pl";
 
 export const schedule = {
-  confirmed: false,
+  confirmed: true,
   // Wykorzystywane przez licznik odliczający oraz schema.org SportsEvent.
-  startIso: "2026-09-12T09:00:00+02:00",
-  endIso: "2026-09-13T18:00:00+02:00",
-  dateLabel: "Termin w przygotowaniu",
-  shortDateLabel: "Wkrótce",
+  startIso: "2026-10-17T09:00:00+02:00",
+  endIso: "2026-10-18T18:00:00+02:00",
+  dateLabel: "17–18 października 2026",
+  shortDateLabel: "17–18.10.2026",
   pendingLabel: "Termin w przygotowaniu",
 };
 
@@ -31,7 +31,13 @@ export const location = {
 
 export const organizer = {
   name: "Automobilklub Karkonosze",
-  logo: "/assets/AKK-Orange-white.webp",
+  // Pełny lockup (godło + napis) do sekcji treści, emblemat bez napisu tam,
+  // gdzie logo jest niskie i napis byłby nieczytelny. Przyrostek mówi o tle,
+  // na którym wariant ma stanąć, a nie o kolorze samego pliku.
+  logoOnLight: "/assets/akk/lockup-on-light.webp",
+  logoOnDark: "/assets/akk/lockup-on-dark.webp",
+  emblemOnLight: "/assets/akk/emblem-on-light.webp",
+  emblemOnDark: "/assets/akk/emblem-on-dark.webp",
   url: "https://www.facebook.com/automobilklubkarkonosze",
 };
 

@@ -7,18 +7,26 @@
         <div class="max-w-xl">
           <div>
             <h2 class="font-display font-bold uppercase text-xl mb-6">Organizator</h2>
-            <address class="not-italic space-y-2 text-rally-steel">
-              <p class="font-semibold text-rally-navy">{{ organizer.name }}</p>
-              <p>{{ location.city }}</p>
-              <p>
-                <a
-                  :href="`mailto:${CONTACT_EMAIL}`"
-                  class="text-rally-orange-dark hover:underline"
-                >
-                  {{ CONTACT_EMAIL }}
-                </a>
-              </p>
-            </address>
+            <div class="flex items-center gap-6">
+              <img
+                :src="organizer.logoOnLight"
+                alt=""
+                aria-hidden="true"
+                class="h-28 w-auto shrink-0"
+              />
+              <address class="not-italic space-y-2 text-rally-steel">
+                <p class="font-semibold text-rally-navy">{{ organizer.name }}</p>
+                <p>{{ location.city }}</p>
+                <p>
+                  <a
+                    :href="`mailto:${CONTACT_EMAIL}`"
+                    class="text-rally-orange-dark hover:underline"
+                  >
+                    {{ CONTACT_EMAIL }}
+                  </a>
+                </p>
+              </address>
+            </div>
           </div>
         </div>
       </div>

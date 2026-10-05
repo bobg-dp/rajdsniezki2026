@@ -1,0 +1,31 @@
+# Nagłówki dla hostingu statycznego. Cloudflare Pages i Netlify czytają ten
+# plik w tej samej składni, więc działa bez zmian na obu.
+#
+# Reguły nie mogą się nakładać na tym samym nagłówku: przy dwóch dopasowanych
+# wzorcach Cloudflare skleja wartości przecinkiem, co psuje Cache-Control.
+# HTML celowo nie ma tu wpisu – oba hostingi domyślnie dają mu
+# „max-age=0, must-revalidate”, czyli dokładnie to, czego chcemy.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=()
+
+# Bundle z hashem w nazwie – ten sam adres nigdy nie zmieni treści.
+/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Grafiki z public/ nie mają hasha w nazwie, więc po podmianie pliku adres
+# zostaje ten sam. Krótsze TTL, żeby nowa wersja weszła bez czekania rok.
+/assets/*.webp
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/assets/*.jpg
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/assets/*.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

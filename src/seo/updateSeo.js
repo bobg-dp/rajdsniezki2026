@@ -130,7 +130,7 @@ function getFallbackSeo(route) {
     dateModified: route.meta?.dateModified,
     articleSection: route.meta?.articleSection,
     canonicalPath: route.path || '/',
-    noindex: false,
+    noindex: route.meta?.noindex ?? false,
   }
 }
 

@@ -34,12 +34,13 @@
           >
         </div>
 
-        <div class="w-full mb-10 overflow-hidden" style="aspect-ratio: 16/7">
-          <div
-            class="w-full h-full bg-cover bg-center"
-            :style="{ backgroundImage: `url(${article.image})` }"
-          ></div>
-        </div>
+        <!-- Plakaty mają proporcje kwadratu, dlatego zamiast kadrowania skalujemy całą grafikę. -->
+        <img
+          v-if="article.image"
+          :src="article.image"
+          :alt="article.imageAlt || article.title"
+          class="mx-auto mb-10 max-h-140 w-full max-w-3xl object-contain"
+        />
 
         <div
           class="prose-custom max-w-none mb-12 space-y-5 text-rally-steel leading-relaxed text-base md:text-lg"

@@ -144,7 +144,7 @@ async function createMap(element, options = {}) {
   }).addTo(instance);
 
   L.polyline(linePoints, {
-    color: "#E67730",
+    color: "#F76003",
     weight: 6,
     opacity: 0.95,
     lineCap: "round",
@@ -270,7 +270,7 @@ onBeforeUnmount(() => {
 }
 
 :deep(.leaflet-control-attribution a) {
-  color: #E67730;
+  color: #F76003;
 }
 
 :deep(.leaflet-tooltip) {
@@ -328,7 +328,7 @@ onBeforeUnmount(() => {
 }
 
 :deep(.stage-point-marker--start) {
-  background: #E67730;
+  background: #F76003;
   color: #121212;
 }
 

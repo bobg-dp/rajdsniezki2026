@@ -94,17 +94,26 @@
 
         <!-- TODO: po zatwierdzeniu składu organizacyjnego podpisz tekst nazwiskiem
              dyrektora rajdu (etykieta: „Dyrektor Rajdu Śnieżki”). -->
-        <div class="mt-8 border-t border-rally-navy/12 pt-6">
-          <p
-            class="font-display text-xs font-bold uppercase tracking-[0.26em] text-rally-navy/45 md:text-sm"
-          >
-            Organizator rajdu
-          </p>
-          <p
-            class="mt-3 font-display text-lg font-semibold uppercase tracking-wide text-rally-navy/70"
-          >
-            {{ organizer.name }}
-          </p>
+        <div class="mt-8 flex items-center gap-6 border-t border-rally-navy/12 pt-6">
+          <img
+            :src="organizer.logoOnLight"
+            alt=""
+            aria-hidden="true"
+            class="h-24 w-auto shrink-0"
+            loading="lazy"
+          />
+          <div>
+            <p
+              class="font-display text-xs font-bold uppercase tracking-[0.26em] text-rally-navy/45 md:text-sm"
+            >
+              Organizator rajdu
+            </p>
+            <p
+              class="mt-3 font-display text-lg font-semibold uppercase tracking-wide text-rally-navy/70"
+            >
+              {{ organizer.name }}
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -8,18 +8,29 @@
       class="relative flex items-center justify-between bg-white px-4 transition-[height,min-height,padding] duration-300 md:px-8"
       :style="{ height: topBarHeight, minHeight: topBarHeight }"
     >
-      <RouterLink
-        to="/"
-        class="group relative z-10 flex shrink-0 items-center"
-        :aria-label="`${EVENT_NAME} – strona główna`"
-      >
+      <div class="relative z-10 flex shrink-0 items-center gap-4 lg:gap-5">
+        <RouterLink
+          to="/"
+          class="group flex shrink-0 items-center"
+          :aria-label="`${EVENT_NAME} – strona główna`"
+        >
+          <img
+            src="/logo.png"
+            :alt="EVENT_NAME"
+            class="w-auto transition-[height,transform] duration-300 group-hover:scale-105"
+            :class="isCompactHeader ? 'h-10 md:h-12' : 'h-14 md:h-20'"
+          />
+        </RouterLink>
+
+        <!-- Logo organizatora dopiero od lg – na md zderzyłoby się z licznikiem na środku paska. -->
+        <span class="hidden h-10 w-px bg-rally-navy/12 lg:block" aria-hidden="true"></span>
         <img
-          src="/logo.png"
-          :alt="EVENT_NAME"
-          class="w-auto transition-[height,transform] duration-300 group-hover:scale-105"
-          :class="isCompactHeader ? 'h-10 md:h-12' : 'h-14 md:h-20'"
+          :src="organizer.emblemOnLight"
+          :alt="organizer.name"
+          class="hidden w-auto transition-[height] duration-300 lg:block"
+          :class="isCompactHeader ? 'h-9' : 'h-14'"
         />
-      </RouterLink>
+      </div>
 
       <div
         v-if="showCountdown"
@@ -128,7 +139,12 @@ import RallyCountdownBanner from "../ui/RallyCountdownBanner.vue";
 import FacebookIcon from "../ui/icons/FacebookIcon.vue";
 import InstagramIcon from "../ui/icons/InstagramIcon.vue";
 import { FACEBOOK_URL, INSTAGRAM_URL } from "../../constants/socialLinks";
-import { EVENT_NAME, resultsUrl, schedule } from "../../data/eventConfig.js";
+import {
+  EVENT_NAME,
+  organizer,
+  resultsUrl,
+  schedule,
+} from "../../data/eventConfig.js";
 
 const route = useRoute();
 const scrolled = ref(false);

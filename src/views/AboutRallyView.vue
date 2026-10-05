@@ -181,6 +181,13 @@
               >
                 Organizator
               </p>
+              <img
+                :src="organizer.logoOnLight"
+                alt=""
+                aria-hidden="true"
+                class="mb-4 h-24 w-auto"
+                loading="lazy"
+              />
               <p class="leading-7 text-rally-steel">
                 {{ organizer.name }} — klub odpowiedzialny za odbudowę rajdów
                 samochodowych w regionie Karkonoszy.

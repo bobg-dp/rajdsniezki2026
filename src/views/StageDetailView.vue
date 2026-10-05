@@ -140,7 +140,7 @@
             <div class="overflow-hidden rounded-[1.5rem] bg-black aspect-video">
               <div
                 v-if="!isVideoConsentGranted"
-                class="flex h-full w-full flex-col justify-between bg-[radial-gradient(circle_at_top,rgba(230, 119, 48,0.18),transparent_45%),linear-gradient(145deg,#181818,#050505)] p-6 text-white md:p-8"
+                class="flex h-full w-full flex-col justify-between bg-[radial-gradient(circle_at_top,rgba(247,96,3,0.18),transparent_45%),linear-gradient(145deg,#181818,#050505)] p-6 text-white md:p-8"
               >
                 <div>
                   <p class="font-display text-xs font-bold uppercase tracking-[0.26em] text-rally-orange">

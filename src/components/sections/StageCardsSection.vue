@@ -1,7 +1,7 @@
 <template>
   <section id="oesy" class="surface-asphalt relative overflow-hidden py-16 md:py-20">
     <div
-      class="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(230,119,48,0.2),transparent_58%)]"
+      class="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(247,96,3,0.2),transparent_58%)]"
       aria-hidden="true"
     ></div>
 

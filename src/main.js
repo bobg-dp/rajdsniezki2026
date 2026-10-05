@@ -13,6 +13,9 @@ export function includedRoutes(paths) {
   return [
     ...new Set([
       ...staticPaths,
+      // Trasa catch-all nie ma własnej ścieżki, a bez tego wpisu nie powstałby
+      // `dist/404.html`, którego hosting potrzebuje dla nieznanych adresów.
+      "/404",
       ...allNews.map((article) => article.url),
       ...allStages.map((stage) => stage.path),
     ]),

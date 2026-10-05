@@ -23,13 +23,14 @@
           </h3>
           <div class="flex flex-col gap-6">
             <div class="group flex items-center gap-5">
-              <!-- Logo klubu jest w wersji na ciemne tło – stąd granatowe kółko. -->
+              <!-- W kółku stoi sam emblemat – napis klubu jest już w tekście obok. -->
               <div
                 class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-rally-orange/40 bg-rally-navy p-2 shadow-lg"
               >
                 <img
-                  :src="organizer.logo"
-                  :alt="organizer.name"
+                  :src="organizer.emblemOnDark"
+                  alt=""
+                  aria-hidden="true"
                   class="h-full w-full object-contain"
                   loading="lazy"
                 />

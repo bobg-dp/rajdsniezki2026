@@ -1,4 +1,4 @@
-import { EVENT_FULL_NAME, tiers } from "./eventConfig.js";
+import { EVENT_FULL_NAME, schedule, tiers } from "./eventConfig.js";
 
 /**
  * Wpis startowy opisuje wyłącznie potwierdzone fakty o imprezie.
@@ -10,21 +10,21 @@ const newsArticles = [
     id: 1,
     slug: "rajd-sniezki-trzy-poziomy-imprezy",
     title: `${EVENT_FULL_NAME} – trzy poziomy imprezy`,
-    excerpt:
-      "Automobilklub Karkonosze przygotowuje Rajd Śnieżki. Tym razem na starcie staną załogi w trzech rangach: Rajd Okręgowy, Rally Sprint oraz Konkursowa Jazda Samochodem.",
+    excerpt: `Automobilklub Karkonosze zaprasza na Rajd Śnieżki w dniach ${schedule.dateLabel}. Na starcie staną załogi w trzech rangach: Rajd Okręgowy, Rally Sprint oraz Konkursowa Jazda Samochodem.`,
     category: "Zapowiedź",
     breadcrumbLabel: "Zapowiedź rajdu",
     dateLabel: "Zapowiedź",
     publishedAt: "2026-01-01",
     modifiedAt: "2026-01-01",
-    image: null,
+    image: "/assets/news/rajd-sniezki-2026-zapowiedz.jpg",
+    imageAlt: `Plakat ${EVENT_FULL_NAME} – rajdowa Škoda Fabia na asfaltowym odcinku w Karkonoszach, termin ${schedule.shortDateLabel}`,
     body: [
-      "Automobilklub Karkonosze rozpoczyna przygotowania do Rajdu Śnieżki – rajdu samochodowego rozgrywanego na asfaltowych drogach Karkonoszy.",
+      `Automobilklub Karkonosze rozpoczyna przygotowania do Rajdu Śnieżki – rajdu samochodowego rozgrywanego na asfaltowych drogach Karkonoszy. Impreza odbędzie się w dniach ${schedule.dateLabel}.`,
       `Impreza zostanie rozegrana w trzech rangach: ${tiers
         .map((tier) => `${tier.name} (${tier.code})`)
         .join(", ")}. Dzięki temu w jednym weekendzie zmieszczą się zarówno załogi z licencjami sportowymi, jak i kierowcy stawiający pierwsze kroki w sporcie samochodowym.`,
       "Na mapie rajdu znalazły się dwa odcinki specjalne: Michałowice w gminie Piechowice oraz odcinek na drogach gminy Stara Kamienica. Próby Konkursowej Jazdy Samochodem zostaną rozegrane na skróconej wersji odcinka Michałowice.",
-      "Termin rajdu, regulamin uzupełniający oraz harmonogram zostaną opublikowane na tej stronie oraz na Elektronicznej Tablicy Ogłoszeń. Zapraszamy do śledzenia aktualności.",
+      "Regulamin uzupełniający oraz szczegółowy harmonogram zostaną opublikowane na tej stronie oraz na Elektronicznej Tablicy Ogłoszeń. Zapraszamy do śledzenia aktualności.",
     ],
     ctas: [
       {

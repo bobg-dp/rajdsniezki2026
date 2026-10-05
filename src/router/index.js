@@ -254,6 +254,22 @@ export const routes = [
       ],
     },
   },
+  /**
+   * Trasa dopasowująca resztę adresów. `includedRoutes` w `main.js` prerenderuje
+   * ją pod ścieżką `/404`, dzięki czemu w `dist/` powstaje `404.html` – plik,
+   * którego hosting statyczny używa dla nieznanych adresów.
+   */
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: () => import("../views/NotFoundView.vue"),
+    meta: {
+      title: `Strona nie została znaleziona ${SUFFIX}`,
+      description: `Ten adres nie istnieje w serwisie ${EVENT_FULL_NAME}. Przejdź do strony głównej lub skorzystaj ze skrótów do najważniejszych działów.`,
+      noindex: true,
+      breadcrumbs: [{ name: "Strona główna", path: "/" }],
+    },
+  },
 ];
 
 export { location };

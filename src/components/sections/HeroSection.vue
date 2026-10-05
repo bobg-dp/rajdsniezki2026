@@ -36,7 +36,7 @@
         ref="trailRef"
         d="M-40 132 C270 110 530 118 772 88 C1012 58 1230 64 1480 34"
         fill="none"
-        stroke="#e67730"
+        stroke="#f76003"
         stroke-width="9"
         stroke-linecap="round"
         opacity="0.9"
@@ -63,12 +63,19 @@
     <div
       class="relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 pt-28 pb-28 md:px-10 md:pt-36 lg:px-14"
     >
-      <p
-        ref="kickerRef"
-        class="font-display text-xs font-bold uppercase tracking-[0.42em] text-rally-orange md:text-sm"
-      >
-        Automobilklub Karkonosze
-      </p>
+      <div ref="kickerRef" class="flex items-center gap-3 md:gap-4">
+        <img
+          :src="organizer.emblemOnDark"
+          alt=""
+          aria-hidden="true"
+          class="h-11 w-auto md:h-14"
+        />
+        <p
+          class="font-display text-xs font-bold uppercase tracking-[0.42em] text-rally-orange md:text-sm"
+        >
+          {{ organizer.name }}
+        </p>
+      </div>
 
       <h1 class="mt-3 font-display font-black uppercase leading-[0.84] md:mt-4">
         <span class="hero-line">
@@ -138,7 +145,12 @@ import { RouterLink } from "vue-router";
 import { gsap } from "gsap";
 import ScrollArrow from "../ui/ScrollArrow.vue";
 import SniezkaRidge from "../ui/SniezkaRidge.vue";
-import { location, schedule, tiers } from "../../data/eventConfig.js";
+import {
+  location,
+  organizer,
+  schedule,
+  tiers,
+} from "../../data/eventConfig.js";
 
 const props = defineProps({
   // Zdjęcie rajdowe jest opcjonalne – bez niego hero stoi na grafice wektorowej.
@@ -224,7 +236,7 @@ onMounted(() => {
 <style scoped>
 .hero-asphalt {
   background:
-    radial-gradient(ellipse at 18% 28%, rgba(230, 119, 48, 0.16) 0%, transparent 58%),
+    radial-gradient(ellipse at 18% 28%, rgba(247, 96, 3, 0.16) 0%, transparent 58%),
     radial-gradient(ellipse at 82% 12%, rgba(232, 238, 243, 0.1) 0%, transparent 52%),
     linear-gradient(168deg, #0e2133 0%, #18364e 46%, #0e2133 100%);
 }
@@ -257,7 +269,7 @@ onMounted(() => {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(230, 119, 48, 0.9) 60%,
+    rgba(247, 96, 3, 0.9) 60%,
     rgba(232, 238, 243, 0)
   );
   animation: rally-streak 900ms cubic-bezier(0.7, 0, 0.3, 1) both;

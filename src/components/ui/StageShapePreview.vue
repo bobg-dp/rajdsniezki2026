@@ -13,8 +13,8 @@
         x2="100%"
         y2="100%"
       >
-        <stop offset="0%" stop-color="#E67730" />
-        <stop offset="100%" stop-color="#F79B5C" />
+        <stop offset="0%" stop-color="#F76003" />
+        <stop offset="100%" stop-color="#FC8E4A" />
       </linearGradient>
     </defs>
 
@@ -50,7 +50,7 @@
       :cx="shape.start.x"
       :cy="shape.start.y"
       r="6"
-      fill="#E67730"
+      fill="#F76003"
       stroke="#081522"
       stroke-width="2"
     />

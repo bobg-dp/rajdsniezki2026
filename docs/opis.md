@@ -6,7 +6,7 @@ Strona internetowa jest budowana dla imprezy Rajd Śnieżki
 Jest ot rajd samochodowy, samochodów osobowych. Pod tą nazwą będą odbywać się imprezy 2 rang:
 1 Runda Rajdowych Samochodowych Mistrzostw Dolnego Śląska w randzie Rajdu Okręgowego (RO)
 1 Runda Mistrzostw Południa w randzie Rally Sprintu (RS)
-Data 13-14 Czerwiec 2026
+Data 17-18 Października 2026
 Miejsce rajdu Jelenia Góra
 Logo znajduje się w fodlerze /assets/logo.png
 Logo ze spashem bardziej dynamiczne znajduje się /assets/logo-splash.png
@@ -38,10 +38,10 @@ Poroponowany kolor czarny lub zlizony do czarnego
 
 Główne kolory wydarzenia to:
 
-- zółty - #E67730
+- zółty - #F76003
 - czarny - #18364E
   DO teł mozna uyć przyciemnionych wersji np
-- zółty - #C25A17
+- zółty - #C04B02
 - czarny - #0E2133 + szary #24455F
 
 ## Struktura strony

@@ -40,6 +40,13 @@
           >
             Kontakt
           </h3>
+          <img
+            :src="organizer.logoOnDark"
+            alt=""
+            aria-hidden="true"
+            class="mb-4 h-20 w-auto"
+            loading="lazy"
+          />
           <address class="space-y-1 text-sm not-italic text-rally-snow-dim">
             <p>{{ organizer.name }}</p>
             <p>{{ location.city }}</p>

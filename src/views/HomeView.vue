@@ -6,13 +6,13 @@
       <HeroSection />
 
       <!-- Hero -> Aktualności -->
-      <SpeedDivider from-color="#081522" to-color="#e67730" direction="right" />
+      <SpeedDivider from-color="#081522" to-color="#f76003" direction="right" />
 
       <NewsSection />
 
       <!-- Aktualności -> Skróty -->
       <SpeedDivider
-        from-color="#e67730"
+        from-color="#f76003"
         to-color="#18364e"
         accent-color="#081522"
         direction="left"
