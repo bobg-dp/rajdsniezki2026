@@ -19,16 +19,10 @@
 	// wymaga podmiany na id wypisane przez to polecenie.
 	"d1_databases": [
 		{
-			"binding": "DB",
-			"database_name": "rajdsniezki",
-			"database_id": "00000000-0000-0000-0000-000000000000",
-			"migrations_dir": "worker/migrations"
-		},
-		{
-			"binding": "rajdsniezki",
-			"database_name": "rajdsniezki",
-			"database_id": "47a71a68-1139-4302-813b-1856f4840fa4"
-		}
+      "binding": "rajdsniezki",
+      "database_name": "rajdsniezki",
+      "database_id": "47a71a68-1139-4302-813b-1856f4840fa4",
+    }
 	],
 	"vars": {
 		"NOTICE_BOARD_API_URL": "https://admin.sportity.com/api/documents",
