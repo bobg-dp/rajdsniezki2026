@@ -141,6 +141,10 @@ const showFolderControls = computed(
 );
 
 const itemTypeLabel = computed(() => {
+  if (props.item.label) {
+    return props.item.label;
+  }
+
   if (isFolder.value) {
     return "Folder";
   }

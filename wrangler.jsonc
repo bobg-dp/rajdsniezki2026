@@ -25,5 +25,6 @@
   "vars": {
     "NOTICE_BOARD_API_URL": "https://admin.sportity.com/api/documents",
     "NOTICE_BOARD_AUTH_HEADER": "X-Sportity-ApiKey",
+    "RALLYDEVIL_INFO_BOARD_URL": "https://c3po.rallydevil.com/functions/v1/get-info-board",
   },
 }

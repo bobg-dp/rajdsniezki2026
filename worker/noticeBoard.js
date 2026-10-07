@@ -1,4 +1,9 @@
 import sampleBoard from "../server/data/notice-board.sample.json";
+import {
+  fetchRallyDevilBoard,
+  normalizeRallyDevilBoard,
+  rallyNameFromPayload,
+} from "./rallyDevilBoard.js";
 
 const HIDDEN_ITEM_NAMES = new Set(["__SPECIAL_PRIVATE_DOCUMENTS__"]);
 
@@ -62,6 +67,7 @@ function normalizeItem(item) {
     url: item.url ?? null,
     originalFileName: item.orig_file ?? null,
     text: item.text ?? null,
+    label: item.label ?? null,
     children,
     childCount: children.length,
   };
@@ -136,6 +142,11 @@ export function createNoticeBoardClient(env) {
       rs: env.NOTICE_BOARD_EVENT_PASSWORD_RS,
       kjs: env.NOTICE_BOARD_EVENT_PASSWORD_KJS,
     },
+    rallyDevil: {
+      url: env.RALLYDEVIL_INFO_BOARD_URL,
+      apiKey: env.RALLYDEVIL_INFO_BOARD_KEY,
+      password: env.RALLYDEVIL_INFO_BOARD_PASSWORD,
+    },
     mockMode: isNoticeBoardMockEnabled(env.NOTICE_BOARD_MOCK_MODE),
   });
 }
@@ -147,6 +158,7 @@ class NoticeBoardClient {
     authHeader,
     eventIds,
     eventPasswords,
+    rallyDevil,
     mockMode,
   }) {
     this.apiBaseUrl = resolveApiBaseUrl(apiUrl, eventPasswords);
@@ -154,6 +166,7 @@ class NoticeBoardClient {
     this.authHeader = authHeader || "X-Sportity-ApiKey";
     this.eventIds = eventIds;
     this.eventPasswords = eventPasswords;
+    this.rallyDevil = rallyDevil ?? {};
     this.mockMode = mockMode;
   }
 
@@ -172,6 +185,22 @@ class NoticeBoardClient {
         fetchedAt: new Date().toISOString(),
         source: "mock",
         items: normalizeItems(sampleBoard.root)
+          .map(normalizeItem)
+          .filter(filterPublicItems)
+          .sort(sortItems),
+      };
+    }
+
+    if (board === "kjs") {
+      const payload = await fetchRallyDevilBoard(this.rallyDevil);
+
+      return {
+        board,
+        eventId: null,
+        eventName: rallyNameFromPayload(payload),
+        fetchedAt: new Date().toISOString(),
+        source: "rallydevil",
+        items: normalizeRallyDevilBoard(payload)
           .map(normalizeItem)
           .filter(filterPublicItems)
           .sort(sortItems),

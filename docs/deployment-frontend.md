@@ -106,13 +106,18 @@ npx wrangler secret put NOTICE_BOARD_EVENT_ID_RO
 npx wrangler secret put NOTICE_BOARD_EVENT_PASSWORD_RO
 npx wrangler secret put NOTICE_BOARD_EVENT_ID_RS
 npx wrangler secret put NOTICE_BOARD_EVENT_PASSWORD_RS
-npx wrangler secret put NOTICE_BOARD_EVENT_ID_KJS
-npx wrangler secret put NOTICE_BOARD_EVENT_PASSWORD_KJS
+npx wrangler secret put RALLYDEVIL_INFO_BOARD_KEY
+npx wrangler secret put RALLYDEVIL_INFO_BOARD_PASSWORD
 ```
 
-`NOTICE_BOARD_API_URL` and `NOTICE_BOARD_AUTH_HEADER` already have defaults in
-`wrangler.jsonc`. Until the event id and password for a tier are set, that
-tier's notice board responds with 503 and the rest of the site keeps working.
+RO and RS use Sportity. KJS uses Rally Devil (`POST /functions/v1/get-info-board`)
+and does not need `NOTICE_BOARD_EVENT_ID_KJS` or `NOTICE_BOARD_EVENT_PASSWORD_KJS`.
+`NOTICE_BOARD_API_URL`, `NOTICE_BOARD_AUTH_HEADER` and `RALLYDEVIL_INFO_BOARD_URL`
+already have defaults in `wrangler.jsonc`. The Rally Devil key and password are
+runtime secrets, same as the Sportity ones: set them on the worker
+`rajdsniezki2026` and deploy. Build variables are not visible at runtime.
+Until the credentials for a tier are set, that tier's notice board responds
+with 503 and the rest of the site keeps working.
 
 Locally, `npm run dev` runs Wrangler on port 8787 and Vite proxies `/api` to
 it. Wrangler reads `.dev.vars`, which `scripts/write-dev-vars.mjs` rebuilds

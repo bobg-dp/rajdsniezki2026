@@ -211,7 +211,7 @@
               </p>
               <h2 class="font-display font-bold uppercase text-xl mb-3"></h2>
               <p class="text-sm text-gray-300 leading-relaxed">
-                Dane są pobierane na żywo z zasobów Sportity.com
+                {{ sourceDescription }}
               </p>
             </section>
 
@@ -304,6 +304,12 @@ const fetchedAtLabel = computed(() =>
   formatTimestamp(boardData.value?.fetchedAt),
 );
 
+const sourceDescription = computed(() =>
+  props.board === "kjs"
+    ? "Dane są pobierane na żywo z Rally Devil."
+    : "Dane są pobierane na żywo z zasobów Sportity.com",
+);
+
 function formatTimestamp(value) {
   if (!value) {
     return null;
@@ -319,6 +325,10 @@ function formatTimestamp(value) {
 }
 
 function itemTypeLabel(item) {
+  if (item.label) {
+    return item.label;
+  }
+
   if (item.type === "PDF") {
     return "Dokument PDF";
   }
