@@ -58,11 +58,21 @@ export const tiers = [
     shortDescription: "Pełne OS-y, licencja sportowa, klasyfikacja cyklu",
     accent: "orange",
     licenceRequired: true,
+    // Przyrostek `OnLight` / `OnDark` mówi o tle, na którym logo ma stanąć,
+    // nie o kolorze samego pliku. Gdy jedna wersja czyta się na obu tłach,
+    // oba pola wskazują ten sam plik.
     cycles: [
       {
-        src: "/assets/cycles/rsmds.webp",
+        srcOnLight: "/assets/cycles/rsmds.webp",
+        srcOnDark: "/assets/cycles/rsmds.webp",
         alt: "Rajdowe Samochodowe Mistrzostwa Dolnego Śląska",
-        confirmed: false,
+        confirmed: true,
+      },
+      {
+        srcOnLight: "/assets/cycles/rmp.webp",
+        srcOnDark: "/assets/cycles/rmp-white.webp",
+        alt: "Rajdowe Mistrzostwa Południa",
+        confirmed: true,
       },
     ],
   },
@@ -80,9 +90,12 @@ export const tiers = [
     licenceRequired: true,
     cycles: [
       {
-        src: "/assets/cycles/rpp-transparent.webp",
+        // Wersja na jasne tło ma własny kafel w kolorze cyklu, dlatego nie jest
+        // to ten sam plik co przezroczysty wariant na ciemne tło.
+        srcOnLight: "/assets/cycles/rpp.webp",
+        srcOnDark: "/assets/cycles/rpp-transparent.webp",
         alt: "Rajdowy Puchar Południa",
-        confirmed: false,
+        confirmed: true,
       },
     ],
   },
@@ -98,7 +111,14 @@ export const tiers = [
     shortDescription: "Start bez licencji sportowej, seryjnym samochodem",
     accent: "steel",
     licenceRequired: false,
-    cycles: [],
+    cycles: [
+      {
+        srcOnLight: "/assets/cycles/mistrz-karkonoszy.webp",
+        srcOnDark: "/assets/cycles/mistrz-karkonoszy.webp",
+        alt: "Mistrz Karkonoszy 2026",
+        confirmed: true,
+      },
+    ],
   },
 ];
 

@@ -99,9 +99,10 @@
               <div class="space-y-5 text-lg leading-8 text-rally-navy/90">
                 <p>
                   Trasy rajdu poprowadzą przez gminę Piechowice (odcinek
-                  Michałowice) oraz gminę Stara Kamienica. Próby Konkursowej
-                  Jazdy Samochodem zostaną rozegrane na skróconej wersji
-                  odcinka Michałowice.
+                  Michałowice) oraz gminę Stara Kamienica. Oba przebiegi
+                  rozegrają wszystkie trzy poziomy imprezy – Konkursowa Jazda
+                  Samochodem pojedzie je jako próby sportowe, na dystansach
+                  potwierdzonych w harmonogramie.
                 </p>
                 <p>
                   Dokładny przebieg obu odcinków, punkty startu i mety oraz

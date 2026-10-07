@@ -77,6 +77,38 @@
               </article>
             </div>
 
+            <!--
+              Tę samą drogę jedzie kilka poziomów imprezy, każdy na własnym
+              dystansie – dlatego wypisujemy je obok siebie zamiast jednej liczby.
+            -->
+            <div
+              class="mt-4 rounded-[1.6rem] border border-black/8 bg-white/80 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+            >
+              <p
+                class="font-display text-xs font-bold uppercase tracking-[0.24em] text-rally-navy/45"
+              >
+                Rozgrywany w poziomach
+              </p>
+              <ul class="mt-4 flex flex-wrap gap-3">
+                <li
+                  v-for="variant in stage.tierStages"
+                  :key="variant.tierKey"
+                  class="flex items-baseline gap-2 border border-rally-navy/12 px-3 py-2"
+                >
+                  <RouterLink
+                    :to="`/${tiersByKey[variant.tierKey].slug}`"
+                    class="font-display text-sm font-bold uppercase tracking-[0.2em] text-rally-orange-dark hover:underline"
+                  >
+                    {{ tiersByKey[variant.tierKey].code }}
+                  </RouterLink>
+                  <span class="text-sm text-rally-navy/70">
+                    {{ variant.code }},
+                    {{ formatStageDistance(variant.distanceKm) }} km
+                  </span>
+                </li>
+              </ul>
+            </div>
+
             <div class="mt-8 flex flex-wrap gap-3">
               <a
                 :href="stage.startMapsUrl"
@@ -222,7 +254,7 @@ import TheHeader from "../components/layout/TheHeader.vue";
 import TheFooter from "../components/layout/TheFooter.vue";
 import StageRouteMap from "../components/ui/StageRouteMap.vue";
 import { getStageBySlug } from "../data/stages.js";
-import { EVENT_FULL_NAME } from "../data/eventConfig.js";
+import { EVENT_FULL_NAME, tiersByKey } from "../data/eventConfig.js";
 import { formatStageDistance } from "../utils/stageShape.js";
 
 const route = useRoute();

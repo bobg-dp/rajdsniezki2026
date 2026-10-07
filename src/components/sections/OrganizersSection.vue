@@ -77,14 +77,15 @@
           <div v-if="confirmedCycles.length" class="flex flex-col gap-6">
             <div
               v-for="cycle in confirmedCycles"
-              :key="`${cycle.tierCode}-${cycle.src}`"
+              :key="`${cycle.tierCode}-${cycle.srcOnDark}`"
               class="group flex items-center gap-5"
             >
               <div
                 class="flex h-16 w-28 shrink-0 items-center justify-center p-2 md:w-32"
               >
+                <!-- Sekcja stoi na granatowym tle, więc bierzemy wariant na ciemne. -->
                 <img
-                  :src="cycle.src"
+                  :src="cycle.srcOnDark"
                   :alt="cycle.alt"
                   class="h-full w-full object-contain"
                   loading="lazy"

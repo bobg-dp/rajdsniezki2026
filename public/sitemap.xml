@@ -164,10 +164,4 @@
     <priority>0.7</priority>
   </url>
 
-  <url>
-    <loc>https://rajdsniezki.pl/oesy/michalowice-kjs</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
 </urlset>

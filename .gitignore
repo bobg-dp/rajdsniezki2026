@@ -2,6 +2,8 @@ node_modules
 dist
 backend.env
 backend.local.env
+.dev.vars
+.wrangler
 server/data/visits.json
 public/assets/cycles/.DS_Store
 .DS_Store

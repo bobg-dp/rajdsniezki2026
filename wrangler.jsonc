@@ -1,14 +1,30 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "rajdsniezki",
+  "main": "worker/index.js",
   "compatibility_date": "2026-10-05",
-  // Worker bez własnego skryptu – serwuje wyłącznie statyczny build z `dist/`.
-  // Dlatego nie ma tu `main` ani `assets.binding`: binding bez `main` jest
-  // błędem konfiguracji, a cały backend stoi osobno na VPS-ie.
+  // Strona i API to jeden Worker. Pliki z `dist/` idą z warstwy assetów,
+  // a skrypt startuje tylko dla `/api/*` – reszta żądań nie zużywa limitu
+  // 100 000 żądań dziennie z darmowego planu.
   "assets": {
     "directory": "./dist",
-    // Adresy bez pasującego pliku dostają prerenderowany `dist/404.html`
-    // ze statusem 404. Bez tego Worker zwróciłby goły komunikat.
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  // Identyfikator powstaje przy `npx wrangler d1 create rajdsniezki`.
+  // Zerowe UUID wystarcza do lokalnego `wrangler dev`; deploy zdalny
+  // wymaga podmiany na id wypisane przez to polecenie.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "rajdsniezki",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+  "vars": {
+    "NOTICE_BOARD_API_URL": "https://admin.sportity.com/api/documents",
+    "NOTICE_BOARD_AUTH_HEADER": "X-Sportity-ApiKey"
   }
 }

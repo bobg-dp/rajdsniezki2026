@@ -57,7 +57,7 @@
         <h2
           class="text-rally-slant max-w-3xl font-display text-4xl font-black uppercase leading-none text-rally-navy md:text-6xl"
         >
-          Rajd pod najwyższym szczytem
+          Rajd pod najwyższym szczytem Karkonoszy
         </h2>
 
         <blockquote

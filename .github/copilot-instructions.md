@@ -12,8 +12,8 @@
 - Keep page-level composition in `src/views`, layout components in `src/components/layout`, homepage sections in `src/components/sections`, and small reusable UI pieces in `src/components/ui`.
 - Route definitions and page SEO metadata live in `src/router/index.js`. New pages should include `title`, `description`, and `breadcrumbs` in route `meta` when applicable.
 - News content is currently maintained in `src/data/news.js`. Extend that source before introducing another content pipeline.
-- The micro backend lives in `server/` and serves same-origin `/api/*` endpoints. External APIs should be called through the backend, not directly from Vue components.
-- The visit counter intentionally uses file persistence in `server/data/visits.json` created at runtime. Do not introduce a database for that feature unless the requirement changes or multi-instance deployment makes file storage unsafe.
+- The API is a Cloudflare Worker in `worker/`. It serves same-origin `/api/*` and static files come from `dist/`. External APIs should be called through the Worker, not directly from Vue components.
+- The visit counter is a single row in the D1 database bound as `DB`. Schema changes go in `worker/migrations/`.
 
 ## Build And Validation
 
@@ -25,13 +25,10 @@
 
 ## Deployment
 
-- Treat deployment as two artifacts: static frontend output from `dist/` and a separate Node backend from `server/index.js`.
-- Do not assume a static-only hosting model anymore. Any deployment-related change must account for both the generated site and the `/api` backend.
-- The backend may run on a separate VPS or host from the frontend. Keep cross-origin access explicit through `CORS_ALLOWED_ORIGINS` instead of allowing all origins.
-- Frontend production builds should point `VITE_API_BASE_URL` at the public backend origin when frontend and backend are deployed separately.
-- Keep deployment configuration environment-driven. New backend integrations should read secrets and upstream URLs from env vars and be reflected in `.env.example`.
-- The current visit counter depends on writable local storage for `server/data/visits.json`. If the target hosting is serverless, read-only, or ephemeral, treat that implementation as non-durable and propose a persistent alternative before shipping.
-- When changing deployment behavior, preserve same-origin frontend calls to `/api` where possible. Avoid pushing third-party API keys into frontend runtime code.
+- Deploy the site and the API together with `wrangler deploy`. `dist/` is the static asset directory and `worker/index.js` handles `/api/*`.
+- Leave `VITE_API_BASE_URL` empty so the browser calls `/api` on the same origin. Set it only when the API is hosted elsewhere.
+- Keep deployment configuration environment-driven. New backend integrations should read secrets and upstream URLs from Worker env vars and be reflected in `.env.example`. Production secrets are set with `wrangler secret put`.
+- Avoid pushing third-party API keys into frontend runtime code.
 
 ## Conventions
 

@@ -15,7 +15,7 @@
         <h2
           class="text-rally-slant mt-3 font-display text-4xl font-black uppercase leading-none text-white md:text-6xl"
         >
-          Odcinki specjalne
+          {{ activeTier.key === "kjs" ? "Próby sportowe" : "Odcinki specjalne" }}
         </h2>
         <p class="mt-5 text-base leading-7 text-rally-snow-dim">
           Przebieg tras pochodzi z mapy organizatora. Numeracja odcinków oraz
@@ -23,9 +23,48 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <!--
+        Każdy poziom imprezy jedzie te same drogi na własnych dystansach,
+        dlatego listę filtrujemy przełącznikiem zamiast pokazywać wszystko razem.
+      -->
+      <div
+        class="mb-6 flex flex-wrap items-center gap-2"
+        role="group"
+        aria-label="Wybierz poziom imprezy"
+      >
+        <button
+          v-for="tier in tiers"
+          :key="tier.key"
+          type="button"
+          :aria-pressed="tier.key === activeTierKey"
+          class="flex items-baseline gap-2 border px-4 py-2.5 transition-all duration-200"
+          :class="
+            tier.key === activeTierKey
+              ? 'border-rally-orange bg-rally-orange text-white'
+              : 'border-white/15 text-rally-snow-dim hover:border-rally-orange/45 hover:text-white'
+          "
+          @click="activeTierKey = tier.key"
+        >
+          <span
+            class="font-display text-xs font-bold uppercase tracking-[0.22em]"
+          >
+            {{ tier.code }}
+          </span>
+          <span class="hidden text-sm font-semibold sm:inline">
+            {{ tier.name }}
+          </span>
+        </button>
+      </div>
+
+      <p class="mb-10 max-w-3xl text-sm leading-6 text-rally-snow-dim/75">
+        Wszystkie poziomy jadą na tych samych drogach. Dystanse mogą się różnić
+        w zależności od poziomu – skrócone warianty potwierdzimy w harmonogramie
+        i regulaminie uzupełniającym.
+      </p>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
         <RouterLink
-          v-for="stage in allStages"
+          v-for="stage in visibleStages"
           :key="stage.slug"
           :to="stage.path"
           class="group flex h-full flex-col border border-white/10 bg-white/[0.04] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-rally-orange/45 hover:bg-white/[0.07]"
@@ -74,7 +113,12 @@
             <li
               v-for="tierKey in stage.tiers"
               :key="tierKey"
-              class="border border-rally-orange/35 px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.18em] text-rally-orange"
+              class="border px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.18em]"
+              :class="
+                tierKey === activeTierKey
+                  ? 'border-rally-orange bg-rally-orange/15 text-rally-orange'
+                  : 'border-white/15 text-rally-snow-dim/65'
+              "
             >
               {{ tiersByKey[tierKey].code }}
             </li>
@@ -104,9 +148,16 @@
 </template>
 
 <script setup>
+import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
-import { allStages } from "../../data/stages.js";
-import { tiersByKey } from "../../data/eventConfig.js";
+import { getStagesForTier } from "../../data/stages.js";
+import { tiers, tiersByKey } from "../../data/eventConfig.js";
 import { formatStageDistance } from "../../utils/stageShape.js";
 import StageShapePreview from "../ui/StageShapePreview.vue";
+
+// Domyślnie pokazujemy najwyższy poziom – to jego pełne przebiegi trafiają
+// do prerenderowanego HTML-a.
+const activeTierKey = ref(tiers[0].key);
+const activeTier = computed(() => tiersByKey[activeTierKey.value]);
+const visibleStages = computed(() => getStagesForTier(activeTierKey.value));
 </script>

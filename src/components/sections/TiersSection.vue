@@ -10,7 +10,7 @@
         <h2
           class="text-rally-slant font-display text-4xl font-black uppercase leading-none text-rally-navy md:text-6xl"
         >
-          Poziomy imprezy
+          Każdy może wystartować!
         </h2>
         <p class="mt-5 text-base leading-7 text-rally-steel md:text-lg">
           Rajd Śnieżki rozgrywany jest w trzech rangach sportowych. Wybierz tę,

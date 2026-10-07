@@ -3,11 +3,12 @@
     <div v-if="confirmedCycles.length" class="mb-6 flex flex-wrap items-center gap-4 md:gap-6">
       <div
         v-for="cycle in confirmedCycles"
-        :key="cycle.src"
-        class="flex h-14 w-28 items-center justify-center md:h-16 md:w-36"
+        :key="cycle.srcOnLight"
+        class="flex h-16 w-32 items-center justify-center md:h-20 md:w-44"
       >
+        <!-- Strefa zawodnika jest jasna, więc bierzemy wariant na jasne tło. -->
         <img
-          :src="cycle.src"
+          :src="cycle.srcOnLight"
           :alt="cycle.alt"
           class="max-h-full max-w-full object-contain"
           loading="lazy"

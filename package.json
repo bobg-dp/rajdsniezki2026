@@ -6,16 +6,12 @@
   "scripts": {
     "dev": "concurrently -k -n api,web \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "vite",
-    "dev:backend": "NODE_ENV=development node --watch server/index.js",
-    "start": "npm run start:backend",
-    "start:backend": "NODE_ENV=production node server/index.js",
+    "dev:backend": "node scripts/write-dev-vars.mjs && mkdir -p dist && CI=1 wrangler d1 migrations apply rajdsniezki --local && wrangler dev --port 8787 --local",
+    "start": "npm run dev:backend",
     "build": "node scripts/generate-sitemap.js && vite-ssg build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
     "gsap": "^3.12.5",
     "leaflet": "^1.9.4",
     "qrcode": "^1.5.4",

@@ -67,7 +67,10 @@ function buildTierRoutes(tier) {
         pageDescription: `Elektroniczna Tablica Ogłoszeń dla zawodników ${tier.name}. Komunikaty, dokumenty i publikacje organizatora pobierane są na żywo z systemu tablicy ogłoszeń.`,
         backPath: base,
         backLabel: `Powrót do strefy zawodników ${tier.code}`,
-        logos: tier.cycles.filter((cycle) => cycle.confirmed),
+        // Tablica ogłoszeń ma białe tło, więc przekazujemy warianty na jasne.
+        logos: tier.cycles
+          .filter((cycle) => cycle.confirmed)
+          .map((cycle) => ({ src: cycle.srcOnLight, alt: cycle.alt })),
       },
       meta: {
         title: `Elektroniczna Tablica Ogłoszeń ${tier.code} ${SUFFIX}`,
@@ -215,7 +218,7 @@ export const routes = [
     component: () => import("../views/StageMapsView.vue"),
     meta: {
       title: `Mapy i odcinki specjalne ${SUFFIX}`,
-      description: `Poznaj odcinki specjalne ${EVENT_FULL_NAME}: Michałowice, Stara Kamienica oraz próbę KJS. Sprawdź kształt tras i punkty startu.`,
+      description: `Poznaj odcinki specjalne ${EVENT_FULL_NAME}: Michałowice i Stara Kamienica, rozgrywane w RO, RS oraz KJS. Sprawdź kształt tras i punkty startu.`,
       breadcrumbs: [
         { name: "Strona główna", path: "/" },
         { name: "Mapy i odcinki", path: "/mapy" },

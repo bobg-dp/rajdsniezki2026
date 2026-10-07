@@ -2,12 +2,12 @@
 
 The frontend is a fully prerendered site. `npm run build` runs
 `scripts/generate-sitemap.js` and then `vite-ssg build`, which writes one HTML
-file per route into `dist/`. Nothing is rendered at request time, so the host
-only serves files from a CDN.
+file per route into `dist/`. Pages are files on the CDN. The only code that
+runs per request is the API under `/api`.
 
-The backend stays on the VPS, as described in `deployment-backend-vps.md`. The
-browser calls it directly over an absolute URL, so the host never proxies
-`/api`.
+The API lives in the same Worker. `worker/index.js` handles `/api/*` and
+everything else is a static file from `dist/`. The browser calls `/api` on the
+site's own origin, so there is no separate API host and no CORS list.
 
 ## Target: Workers With Static Assets
 
@@ -21,8 +21,8 @@ Why Cloudflare over Netlify for this project:
   ~370 kB, `rmp.jpg` and `rsmds.jpg` are ~1 MB each) and rally traffic spikes
   on event days. Netlify's free tier stops at 100 GB/month and bills overage.
 - There is a Warsaw edge location, so Polish visitors are served locally.
-- The API domain on the VPS can go behind the same Cloudflare account, which
-  adds TLS, caching and DDoS protection in front of the Node process.
+- The visit counter and the Sportity proxy run in the same Worker, so there
+  is no second host to keep online.
 
 One constraint to know up front: a Worker can only take a custom domain that is
 a zone in Cloudflare DNS. Pages could attach domains hosted elsewhere; Workers
@@ -36,10 +36,15 @@ Cloudflare.
 - `assets.directory` is `./dist`.
 - `assets.not_found_handling` is `404-page`, so unmatched paths get the
   prerendered `dist/404.html` with a 404 status.
-- There is no `main` and no `assets.binding`. This is an assets-only Worker;
-  a binding without `main` is rejected by Wrangler.
+- `main` is `worker/index.js`. `assets.binding` is `ASSETS`, which the script
+  uses only when a request is not under `/api`.
+- `assets.run_worker_first` is `/api/*`, so HTML, CSS and images are served
+  without invoking the script. Those requests do not count toward the free
+  plan's 100,000 Worker requests per day.
 - `html_handling` is left at its default, which serves `/kontakt` from
   `kontakt.html`.
+- `d1_databases` binds the visit counter. `database_id` starts as a zero UUID
+  so `wrangler dev` works before the remote database exists.
 
 `wrangler` is a devDependency so the version is pinned. Workers Builds uses the
 Wrangler version from `package.json`, which keeps CI from silently jumping to a
@@ -63,21 +68,12 @@ npx wrangler deploy --dry-run
 Node version comes from `.nvmrc` (22). If a build picks a different version,
 add a `NODE_VERSION` build variable set to `22`.
 
-## Required Build Variable
+## Do Not Set VITE_API_BASE_URL
 
-```env
-VITE_API_BASE_URL=https://rajdsniezki.rallydevil.com
-```
-
-This goes in `Settings` → `Builds` → build variables, **not** in the Worker's
-runtime `Variables & Secrets`. Build variables exist only while the build runs,
-which is exactly what is needed: Vite inlines the value into the bundle at build
-time and nothing reads it at runtime.
-
-Without it the frontend requests `/api/...` on its own domain, where nothing is
-listening, and the visit counter plus notice board stop working. The pages still
-render, because both services swallow fetch errors — so a missing variable fails
-quietly. Set it before the first deploy and redeploy after any change.
+Leave this build variable unset, and delete it if it was added for the old VPS
+API. An empty value makes the browser call `/api` on the same host as the
+pages. A leftover absolute URL would keep sending the counter and the notice
+board to the previous host.
 
 ## Static Asset Headers
 
@@ -86,19 +82,41 @@ applies the rules to static asset responses; the file itself is not served. It
 sets security headers and cache lifetimes — read the comments in it before
 editing, especially the note about overlapping rules.
 
-## Backend Side Of The Deploy
+## API On The Same Worker
 
-`CORS_ALLOWED_ORIGINS` on the VPS must list the exact origin the browser uses.
-The backend compares origins literally, with no wildcard support:
+One-time setup, from the repo, while logged in to Wrangler:
 
-```env
-CORS_ALLOWED_ORIGINS=https://rajdsniezki.pl,https://www.rajdsniezki.pl
+```sh
+npx wrangler d1 create rajdsniezki
 ```
 
-Preview builds get their own generated URL, which is not covered by the entries
-above. In previews the counter and notice board will fail while the rest of the
-page works. Add the preview origin to the list when a preview needs live API
-data.
+Paste the printed id into `database_id` in `wrangler.jsonc`, then apply the
+visit-counter migration to the remote database:
+
+```sh
+npx wrangler d1 migrations apply rajdsniezki --remote
+```
+
+Sportity credentials are runtime secrets, not build variables. Set each one
+that the rally actually uses:
+
+```sh
+npx wrangler secret put NOTICE_BOARD_API_KEY
+npx wrangler secret put NOTICE_BOARD_EVENT_ID_RO
+npx wrangler secret put NOTICE_BOARD_EVENT_PASSWORD_RO
+npx wrangler secret put NOTICE_BOARD_EVENT_ID_RS
+npx wrangler secret put NOTICE_BOARD_EVENT_PASSWORD_RS
+npx wrangler secret put NOTICE_BOARD_EVENT_ID_KJS
+npx wrangler secret put NOTICE_BOARD_EVENT_PASSWORD_KJS
+```
+
+`NOTICE_BOARD_API_URL` and `NOTICE_BOARD_AUTH_HEADER` already have defaults in
+`wrangler.jsonc`. Until the event id and password for a tier are set, that
+tier's notice board responds with 503 and the rest of the site keeps working.
+
+Locally, `npm run dev` runs Wrangler on port 8787 and Vite proxies `/api` to
+it. Wrangler reads `.dev.vars`, which `scripts/write-dev-vars.mjs` rebuilds
+from `.env`, `backend.env` and `backend.local.env`.
 
 ## Custom Domain
 
@@ -106,9 +124,7 @@ data.
    the registrar.
 2. Attach the domain to the Worker under its `Domains & Routes` settings, for
    both the apex and `www`.
-3. Keep the API on its own hostname on the VPS so the two deploys stay
-   independent.
-4. `SITE_URL` in `src/data/eventConfig.js` drives canonical URLs, the sitemap
+3. `SITE_URL` in `src/data/eventConfig.js` drives canonical URLs, the sitemap
    and schema.org output. It must match the production domain exactly.
 
 ## Error Page

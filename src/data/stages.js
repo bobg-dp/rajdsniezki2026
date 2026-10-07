@@ -5,17 +5,20 @@ import { schedule } from "./eventConfig.js";
  * uproszczona do kilkudziesięciu punktów na odcinek – wystarczająco dokładnie
  * dla podglądu kształtu trasy, bez obciążania bundla.
  *
+ * Jedna droga = jeden wpis. Każdy poziom imprezy jedzie ją na własnych
+ * warunkach (RS i KJS zwykle kończą bieg wcześniej), dlatego długości, mety
+ * i geometrię trzymamy w `variants` – pusty obiekt oznacza „pełna trasa”.
+ *
  * TODO: numeracja OS-ów (OS 1, OS 2 ...) oraz daty rozgrywania odcinków
- * czekają na zatwierdzony harmonogram.
+ * czekają na zatwierdzony harmonogram. Skrócone warianty RS i KJS czekają na
+ * dane organizatora – mapa KML zawiera wyłącznie pełne przebiegi.
  */
-const stages = [
+const routes = [
   {
     slug: "michalowice",
-    code: "OS",
     name: "Michałowice",
-    typeLabel: "Odcinek specjalny",
-    tiers: ["ro", "rs"],
     distanceKm: 7.85,
+    variants: { ro: {}, rs: {}, kjs: {} },
     start: [15.57806, 50.84681],
     finish: [15.616515, 50.822088],
     startMapsUrl:
@@ -89,11 +92,9 @@ const stages = [
   },
   {
     slug: "stara-kamienica",
-    code: "OS",
     name: "Stara Kamienica",
-    typeLabel: "Odcinek specjalny",
-    tiers: ["ro", "rs"],
     distanceKm: 9.62,
+    variants: { ro: {}, rs: {}, kjs: {} },
     start: [15.610228, 50.922629],
     finish: [15.628077, 50.888174],
     startMapsUrl:
@@ -159,56 +160,17 @@ const stages = [
       [15.628086, 50.888195],
     ],
   },
-  {
-    slug: "michalowice-kjs",
-    code: "PS KJS",
-    name: "Michałowice",
-    typeLabel: "Próba sportowa KJS",
-    tiers: ["kjs"],
-    distanceKm: 3.8,
-    start: [15.57806, 50.84681],
-    finish: [15.586633, 50.832042],
-    startMapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=50.84681,15.57806",
-    finishMapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=50.832042,15.586633",
-    summary:
-      "Skrócona wersja odcinka Michałowice z metą lotną przed najtrudniejszym fragmentem. Trasa prób sportowych Konkursowej Jazdy Samochodem.",
-    shapePoints: [
-      [15.57806, 50.84681],
-      [15.57607, 50.84693],
-      [15.57571, 50.8468],
-      [15.57571, 50.84655],
-      [15.57686, 50.84614],
-      [15.57903, 50.84477],
-      [15.58019, 50.8437],
-      [15.58068, 50.8436],
-      [15.58102, 50.84391],
-      [15.58063, 50.84522],
-      [15.58074, 50.84573],
-      [15.58244, 50.84688],
-      [15.58304, 50.8469],
-      [15.58304, 50.84665],
-      [15.58195, 50.84607],
-      [15.58146, 50.84533],
-      [15.5829, 50.84266],
-      [15.58389, 50.84153],
-      [15.58535, 50.84076],
-      [15.58618, 50.83949],
-      [15.59115, 50.83684],
-      [15.59149, 50.83595],
-      [15.59226, 50.835],
-      [15.59242, 50.83419],
-      [15.59334, 50.83346],
-      [15.59318, 50.83304],
-      [15.59266, 50.8329],
-      [15.59113, 50.83356],
-      [15.5868, 50.83418],
-      [15.5863, 50.83304],
-      [15.586633, 50.832042],
-    ],
-  },
 ];
+
+/**
+ * KJS nie jeździ „odcinków specjalnych”, a „próby sportowe”, więc nazewnictwo
+ * zależy od poziomu imprezy, nie od samej drogi.
+ */
+const stageNaming = {
+  ro: { code: "OS", typeLabel: "Odcinek specjalny" },
+  rs: { code: "OS", typeLabel: "Odcinek specjalny" },
+  kjs: { code: "PS", typeLabel: "Próba sportowa" },
+};
 
 function withDerived(stage) {
   return {
@@ -220,12 +182,36 @@ function withDerived(stage) {
   };
 }
 
-export const allStages = stages.map(withDerived);
+function resolveForTier(route, tierKey) {
+  const { variants, ...base } = route;
+  return withDerived({
+    ...base,
+    ...stageNaming[tierKey],
+    ...variants[tierKey],
+    tierKey,
+    tiers: Object.keys(variants),
+  });
+}
+
+export const allStages = routes.map((route) => {
+  const tiers = Object.keys(route.variants);
+  const { variants, ...base } = route;
+  return withDerived({
+    ...base,
+    // Strona odcinka jest wspólna dla wszystkich poziomów, więc opisujemy ją
+    // nazewnictwem najwyższego z nich, a dystanse pokazujemy per poziom.
+    ...stageNaming[tiers[0]],
+    tiers,
+    tierStages: tiers.map((tierKey) => resolveForTier(route, tierKey)),
+  });
+});
 
 export function getStageBySlug(slug) {
   return allStages.find((stage) => stage.slug === slug);
 }
 
 export function getStagesForTier(tierKey) {
-  return allStages.filter((stage) => stage.tiers.includes(tierKey));
+  return routes
+    .filter((route) => tierKey in route.variants)
+    .map((route) => resolveForTier(route, tierKey));
 }

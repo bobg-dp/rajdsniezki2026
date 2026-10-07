@@ -32,6 +32,11 @@ const shortcuts = [
     to: `/${tier.slug}`,
     icon: "steering",
     note: tier.licenceRequired ? null : "Bez licencji sportowej",
+    // Sekcja stoi na asfalcie, więc loga cykli bierzemy w wariancie na ciemne tło.
+    // Brak potwierdzonych cykli zostawia ikonę kierownicy.
+    logos: tier.cycles
+      .filter((cycle) => cycle.confirmed)
+      .map((cycle) => ({ src: cycle.srcOnDark, alt: cycle.alt })),
   })),
   {
     label: "Dla kibiców",

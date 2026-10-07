@@ -1,4 +1,4 @@
-import fs from "node:fs/promises";
+import sampleBoard from "../server/data/notice-board.sample.json";
 
 const HIDDEN_ITEM_NAMES = new Set(["__SPECIAL_PRIVATE_DOCUMENTS__"]);
 
@@ -121,7 +121,26 @@ export function isNoticeBoardMockEnabled(value) {
   );
 }
 
-export class NoticeBoardClient {
+export function createNoticeBoardClient(env) {
+  return new NoticeBoardClient({
+    apiUrl: env.NOTICE_BOARD_API_URL,
+    apiKey: env.NOTICE_BOARD_API_KEY,
+    authHeader: env.NOTICE_BOARD_AUTH_HEADER,
+    eventIds: {
+      ro: env.NOTICE_BOARD_EVENT_ID_RO,
+      rs: env.NOTICE_BOARD_EVENT_ID_RS,
+      kjs: env.NOTICE_BOARD_EVENT_ID_KJS,
+    },
+    eventPasswords: {
+      ro: env.NOTICE_BOARD_EVENT_PASSWORD_RO,
+      rs: env.NOTICE_BOARD_EVENT_PASSWORD_RS,
+      kjs: env.NOTICE_BOARD_EVENT_PASSWORD_KJS,
+    },
+    mockMode: isNoticeBoardMockEnabled(env.NOTICE_BOARD_MOCK_MODE),
+  });
+}
+
+class NoticeBoardClient {
   constructor({
     apiUrl,
     apiKey,
@@ -129,7 +148,6 @@ export class NoticeBoardClient {
     eventIds,
     eventPasswords,
     mockMode,
-    mockDataPath,
   }) {
     this.apiBaseUrl = resolveApiBaseUrl(apiUrl, eventPasswords);
     this.apiKey = apiKey;
@@ -137,7 +155,6 @@ export class NoticeBoardClient {
     this.eventIds = eventIds;
     this.eventPasswords = eventPasswords;
     this.mockMode = mockMode;
-    this.mockDataPath = mockDataPath;
   }
 
   async fetchBoard(board) {
@@ -149,7 +166,16 @@ export class NoticeBoardClient {
     const eventPassword = normalizeConfigValue(this.eventPasswords[board]);
 
     if (this.mockMode) {
-      return this.fetchMockBoard(board, eventId);
+      return {
+        board,
+        eventId,
+        fetchedAt: new Date().toISOString(),
+        source: "mock",
+        items: normalizeItems(sampleBoard.root)
+          .map(normalizeItem)
+          .filter(filterPublicItems)
+          .sort(sortItems),
+      };
     }
 
     if (!this.apiBaseUrl) {
@@ -214,40 +240,5 @@ export class NoticeBoardClient {
     }
 
     return response.json();
-  }
-
-  async fetchMockBoard(board, eventId) {
-    if (!this.mockDataPath) {
-      throw createError("NOTICE_BOARD_MOCK_DATA_FILE is not configured.", 503);
-    }
-
-    try {
-      const fileContent = await fs.readFile(this.mockDataPath, "utf8");
-      const payload = JSON.parse(fileContent);
-
-      return {
-        board,
-        eventId,
-        fetchedAt: new Date().toISOString(),
-        source: "mock",
-        items: this.getMockItems(payload)
-          .map(normalizeItem)
-          .filter(filterPublicItems)
-          .sort(sortItems),
-      };
-    } catch (error) {
-      throw createError(
-        `Failed to read notice board mock data: ${error.message}`,
-        500,
-      );
-    }
-  }
-
-  getMockItems(payload) {
-    if (Array.isArray(payload)) {
-      return payload;
-    }
-
-    return Array.isArray(payload.root) ? payload.root : [];
   }
 }
