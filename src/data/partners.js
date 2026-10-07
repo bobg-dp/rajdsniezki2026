@@ -163,4 +163,9 @@ export const mediaPatrons = [
     logo: "/assets/partners/media/adrenalina.webp",
     linkTitle: "Adrenalina – rally edition",
   },
+  {
+    name: "Mateusz Szczerba Photography",
+    logo: "/assets/partners/media/mateusz-szczerba.webp",
+    linkTitle: "Mateusz Szczerba Photography",
+  },
 ];

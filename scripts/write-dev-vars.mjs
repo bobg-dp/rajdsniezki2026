@@ -70,7 +70,7 @@ if (
   !fs.existsSync("backend.env") &&
   !fs.existsSync("backend.local.env")
 ) {
-  lines.push('NOTICE_BOARD_MOCK_MODE="true"');
+  lines.push('NOTICE_BOARD_MOCK_MODE="false"');
 }
 
 fs.writeFileSync(".dev.vars", `${lines.join("\n")}\n`);
