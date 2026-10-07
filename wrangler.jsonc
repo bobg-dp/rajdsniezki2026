@@ -1,31 +1,29 @@
 {
-	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "rajdsniezki",
-	"main": "worker/index.js",
-	"compatibility_date": "2026-10-05",
-	// Strona i API to jeden Worker. Pliki z `dist/` idą z warstwy assetów,
-	// a skrypt startuje tylko dla `/api/*` – reszta żądań nie zużywa limitu
-	// 100 000 żądań dziennie z darmowego planu.
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS",
-		"not_found_handling": "404-page",
-		"run_worker_first": [
-			"/api/*"
-		]
-	},
-	// Identyfikator powstaje przy `npx wrangler d1 create rajdsniezki`.
-	// Zerowe UUID wystarcza do lokalnego `wrangler dev`; deploy zdalny
-	// wymaga podmiany na id wypisane przez to polecenie.
-	"d1_databases": [
-		{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rajdsniezki2026",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-05",
+  // Strona i API to jeden Worker. Pliki z `dist/` idą z warstwy assetów,
+  // a skrypt startuje tylko dla `/api/*` – reszta żądań nie zużywa limitu
+  // 100 000 żądań dziennie z darmowego planu.
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"],
+  },
+  // Identyfikator powstaje przy `npx wrangler d1 create rajdsniezki`.
+  // Zerowe UUID wystarcza do lokalnego `wrangler dev`; deploy zdalny
+  // wymaga podmiany na id wypisane przez to polecenie.
+  "d1_databases": [
+    {
       "binding": "rajdsniezki",
       "database_name": "rajdsniezki",
       "database_id": "47a71a68-1139-4302-813b-1856f4840fa4",
-    }
-	],
-	"vars": {
-		"NOTICE_BOARD_API_URL": "https://admin.sportity.com/api/documents",
-		"NOTICE_BOARD_AUTH_HEADER": "X-Sportity-ApiKey"
-	}
+    },
+  ],
+  "vars": {
+    "NOTICE_BOARD_API_URL": "https://admin.sportity.com/api/documents",
+    "NOTICE_BOARD_AUTH_HEADER": "X-Sportity-ApiKey",
+  },
 }
