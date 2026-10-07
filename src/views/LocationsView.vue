@@ -81,19 +81,21 @@ const locations = [
   {
     name: "Biuro Rajdu / Biuro Prasowe",
     label: "Administracja · Odbiór Administracyjny · BK 2",
-    address: "ul. Nowowiejska 81\n58-500 Jelenia Góra",
+    address:
+      "Zespół Szkół Technicznych „Mechanik”\nul. Obrońców Pokoju 11\n58-500 Jelenia Góra",
     mapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=Nowowiejska+81%2C+Jelenia+G%C3%B3ra",
+      "https://www.google.com/maps/dir/?api=1&destination=Obro%C5%84c%C3%B3w+Pokoju+11%2C+Jelenia+G%C3%B3ra",
     // Building / office
     iconPath:
       "M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z",
   },
   {
-    name: "Park Serwisowy / Końcowy Park Zamknięty",
-    label: "Serwis · Strefa Tankowania",
-    address: "Aleja Jana Pawła II 17\n58-500 Jelenia Góra",
+    name: "Park Serwisowy",
+    label: "Serwis",
+    address:
+      "Galeria Sudecka\nAleja Jana Pawła II 51\n58-500 Jelenia Góra",
     mapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=Aleja+Jana+Paw%C5%82a+II+17%2C+Jelenia+G%C3%B3ra",
+      "https://www.google.com/maps/dir/?api=1&destination=Aleja+Jana+Paw%C5%82a+II+51%2C+Jelenia+G%C3%B3ra",
     // Wrench / repair
     iconPath:
       "M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z",
@@ -119,24 +121,23 @@ const locations = [
       "M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z",
   },
   {
-    name: "Dedykowana Stacja Paliw – ORLEN",
-    label: "Paliwo",
-    address: "ul. Wincentego Pola 4\n58-500 Jelenia Góra",
+    name: "Dedykowana Stacja Paliw – MOL",
+    label: "Paliwo · PB98 (E5), PB95 (E10)",
+    address: "ul. Sobieskiego 92\n58-500 Jelenia Góra",
     mapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=Wincentego+Pola+4%2C+Jelenia+G%C3%B3ra",
+      "https://www.google.com/maps/dir/?api=1&destination=50.910049,15.700075",
     // Gas pump
     iconPath:
       "M19.77 7.23l.01-.01-3.72-3.72-1.06 1.06 2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM18 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM8 18v-4.5H6V18H4V5h8v13H8z",
   },
   {
-    name: "Park Zamknięty",
-    label: "Parc Fermé · Meta Sekcji 1",
-    address: "Podwale 25\n58-500 Jelenia Góra",
+    name: "Strefa Tankowania",
+    label: "Tankowanie",
+    address: "Leroy Merlin\nul. Legnicka 3\n58-500 Jelenia Góra",
     mapsUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=Podwale+25%2C+Jelenia+G%C3%B3ra",
-    // Lock / secure
+      "https://www.google.com/maps/dir/?api=1&destination=Legnicka+3%2C+Jelenia+G%C3%B3ra",
     iconPath:
-      "M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z",
+      "M19.77 7.23l.01-.01-3.72-3.72-1.06 1.06 2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM18 10c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM8 18v-4.5H6V18H4V5h8v13H8z",
   },
 ];
 </script>

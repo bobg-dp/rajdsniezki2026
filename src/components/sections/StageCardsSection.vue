@@ -57,9 +57,8 @@
       </div>
 
       <p class="mb-10 max-w-3xl text-sm leading-6 text-rally-snow-dim/75">
-        Wszystkie poziomy jadą na tych samych drogach. Dystanse mogą się różnić
-        w zależności od poziomu – skrócone warianty potwierdzimy w harmonogramie
-        i regulaminie uzupełniającym.
+        Wszystkie poziomy jadą na tych samych drogach. Rally Sprint i KJS
+        kończą wcześniej, na własnej mecie lotnej.
       </p>
 
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">

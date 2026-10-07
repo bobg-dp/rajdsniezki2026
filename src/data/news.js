@@ -23,7 +23,7 @@ const newsArticles = [
       `Impreza zostanie rozegrana w trzech rangach: ${tiers
         .map((tier) => `${tier.name} (${tier.code})`)
         .join(", ")}. Dzięki temu w jednym weekendzie zmieszczą się zarówno załogi z licencjami sportowymi, jak i kierowcy stawiający pierwsze kroki w sporcie samochodowym.`,
-      "Na mapie rajdu znalazły się dwa odcinki specjalne: Michałowice w gminie Piechowice oraz odcinek na drogach gminy Stara Kamienica. Oba przebiegi rozegrają wszystkie trzy poziomy imprezy – Konkursowa Jazda Samochodem pojedzie je jako próby sportowe. Dystanse poszczególnych poziomów potwierdzimy w harmonogramie.",
+      "Na mapie rajdu znalazły się dwa odcinki specjalne: Michałowice w gminie Piechowice oraz odcinek na drogach gminy Stara Kamienica. Oba przebiegi rozegrają wszystkie trzy poziomy imprezy. Rajd Okręgowy jedzie do swojej mety lotnej, a Rally Sprint i Konkursowa Jazda Samochodem kończą wcześniej na tych samych drogach.",
       "Regulamin uzupełniający oraz szczegółowy harmonogram zostaną opublikowane na tej stronie oraz na Elektronicznej Tablicy Ogłoszeń. Zapraszamy do śledzenia aktualności.",
     ],
     ctas: [

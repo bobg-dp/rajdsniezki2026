@@ -80,7 +80,8 @@
                 <address
                   class="mt-5 not-italic text-[15px] leading-7 text-rally-navy/80 md:text-base md:leading-8"
                 >
-                  <p>ul. Nowowiejska 81</p>
+                  <p>Zespół Szkół Technicznych „Mechanik”</p>
+                  <p>ul. Obrońców Pokoju 11</p>
                   <p>58-500 Jelenia Góra</p>
                 </address>
                 <p class="mt-4 text-sm leading-6 text-rally-navy/55">
@@ -89,7 +90,7 @@
                 </p>
                 <div class="mt-8 flex flex-wrap gap-4">
                   <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=Nowowiejska%2081%2C%2058-500%20Jelenia%20Gora"
+                    href="https://www.google.com/maps/dir/?api=1&destination=Obro%C5%84c%C3%B3w%20Pokoju%2011%2C%2058-500%20Jelenia%20Gora"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center justify-center rounded-full bg-rally-orange px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-rally-navy transition-colors duration-200 hover:bg-rally-orange-dark"

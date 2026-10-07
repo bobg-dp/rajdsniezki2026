@@ -10,7 +10,7 @@ export const EVENT_NAME = "Rajd Śnieżki";
 export const EVENT_EDITION = "2026";
 export const EVENT_FULL_NAME = `${EVENT_NAME} ${EVENT_EDITION}`;
 export const SITE_URL = "https://rajdsniezki.pl";
-export const CONTACT_EMAIL = "biuro@akkarkonosze.pl";
+export const CONTACT_EMAIL = "rajd@akkarkonosze.pl";
 
 export const schedule = {
   confirmed: true,
@@ -66,12 +66,6 @@ export const tiers = [
         srcOnLight: "/assets/cycles/rsmds.webp",
         srcOnDark: "/assets/cycles/rsmds.webp",
         alt: "Rajdowe Samochodowe Mistrzostwa Dolnego Śląska",
-        confirmed: true,
-      },
-      {
-        srcOnLight: "/assets/cycles/rmp.webp",
-        srcOnDark: "/assets/cycles/rmp-white.webp",
-        alt: "Rajdowe Mistrzostwa Południa",
         confirmed: true,
       },
     ],

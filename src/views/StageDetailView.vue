@@ -141,8 +141,9 @@
             <StageRouteMap :key="stage.slug" :stage="stage" />
 
             <p class="mt-5 text-sm leading-6 text-rally-snow-dim">
-              Pomarańczowy marker oznacza start, biały metę. Możesz przybliżać
-              mapę i przesuwać widok, aby sprawdzić przebieg odcinka.
+              Mapa pokazuje przebieg Rajdu Okręgowego, od startu do mety lotnej.
+              Pomarańczowy marker oznacza start, biały metę. RS i KJS kończą
+              wcześniej, na dystansach podanych powyżej.
             </p>
           </div>
         </div>
