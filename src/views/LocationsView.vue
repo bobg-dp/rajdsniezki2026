@@ -67,6 +67,47 @@
             </div>
           </div>
         </div>
+
+        <section class="mt-16">
+          <p
+            class="font-display font-bold uppercase tracking-[0.3em] text-rally-orange text-sm mb-2"
+          >
+            Odcinki specjalne
+          </p>
+          <h2
+            class="font-display font-black uppercase text-rally-navy text-3xl md:text-4xl mb-4"
+          >
+            Start i meta na trasie
+          </h2>
+          <p class="max-w-3xl text-rally-navy/70 text-base leading-7 mb-8">
+            Na stronie odcinka włączysz nawigację do startu i do mety wybranego
+            poziomu imprezy.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <RouterLink
+              v-for="stage in stages"
+              :key="stage.slug"
+              :to="stage.path"
+              class="flex items-center justify-between gap-4 bg-rally-navy text-white p-8 transition-colors hover:bg-rally-navy/90"
+            >
+              <div>
+                <p
+                  class="font-display font-bold uppercase text-xs tracking-widest text-rally-orange mb-2"
+                >
+                  Odcinek specjalny
+                </p>
+                <h3 class="font-display font-bold uppercase text-xl">
+                  {{ stage.name }}
+                </h3>
+              </div>
+              <span
+                class="shrink-0 font-display font-bold uppercase text-xs tracking-wider text-rally-orange"
+              >
+                Zobacz odcinek
+              </span>
+            </RouterLink>
+          </div>
+        </section>
       </div>
     </main>
     <TheFooter />
@@ -74,8 +115,10 @@
 </template>
 
 <script setup>
+import { RouterLink } from "vue-router";
 import TheHeader from "../components/layout/TheHeader.vue";
 import TheFooter from "../components/layout/TheFooter.vue";
+import { allStages as stages } from "../data/stages.js";
 
 const locations = [
   {

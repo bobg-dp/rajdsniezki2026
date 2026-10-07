@@ -17,10 +17,6 @@
         >
           {{ activeTier.key === "kjs" ? "Próby sportowe" : "Odcinki specjalne" }}
         </h2>
-        <p class="mt-5 text-base leading-7 text-rally-snow-dim">
-          Przebieg tras pochodzi z mapy organizatora. Numeracja odcinków oraz
-          godziny startów zostaną potwierdzone w harmonogramie rajdu.
-        </p>
       </div>
 
       <!--

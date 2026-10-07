@@ -17,12 +17,12 @@
             <p
               class="font-display text-sm font-bold uppercase tracking-[0.28em] text-rally-navy/55"
             >
-              {{ stage.typeLabel }}
+              {{ activeVariant.typeLabel }}
             </p>
             <h1
               class="mt-3 font-display text-5xl font-black uppercase leading-none text-rally-navy md:text-7xl"
             >
-              {{ stage.headline }}
+              {{ activeVariant.headline }}
             </h1>
             <p class="mt-5 max-w-2xl text-lg leading-8 text-rally-navy/75">
               Interaktywny podgląd przebiegu trasy przygotowany na podstawie
@@ -57,7 +57,7 @@
                 <p
                   class="mt-3 font-display text-2xl font-bold uppercase text-rally-navy"
                 >
-                  {{ formatStageDistance(stage.distanceKm) }} km
+                  {{ formatStageDistance(activeVariant.distanceKm) }} km
                 </p>
               </article>
 
@@ -72,41 +72,55 @@
                 <p
                   class="mt-3 font-display text-2xl font-bold uppercase text-rally-navy"
                 >
-                  {{ stage.code }}
+                  {{ activeVariant.code }}
                 </p>
               </article>
             </div>
 
-            <!--
-              Tę samą drogę jedzie kilka poziomów imprezy, każdy na własnym
-              dystansie – dlatego wypisujemy je obok siebie zamiast jednej liczby.
-            -->
             <div
               class="mt-4 rounded-[1.6rem] border border-black/8 bg-white/80 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
             >
               <p
                 class="font-display text-xs font-bold uppercase tracking-[0.24em] text-rally-navy/45"
               >
-                Rozgrywany w poziomach
+                Przebieg na mapie
               </p>
-              <ul class="mt-4 flex flex-wrap gap-3">
-                <li
+              <div
+                class="mt-4 flex flex-wrap gap-3"
+                role="group"
+                aria-label="Wybierz poziom imprezy"
+              >
+                <button
                   v-for="variant in stage.tierStages"
                   :key="variant.tierKey"
-                  class="flex items-baseline gap-2 border border-rally-navy/12 px-3 py-2"
+                  type="button"
+                  :aria-pressed="variant.tierKey === activeTierKey"
+                  class="flex items-baseline gap-2 border px-3 py-2 transition-colors"
+                  :class="
+                    variant.tierKey === activeTierKey
+                      ? 'border-rally-orange bg-rally-orange text-white'
+                      : 'border-rally-navy/12 text-rally-navy hover:border-rally-orange'
+                  "
+                  @click="activeTierKey = variant.tierKey"
                 >
-                  <RouterLink
-                    :to="`/${tiersByKey[variant.tierKey].slug}`"
-                    class="font-display text-sm font-bold uppercase tracking-[0.2em] text-rally-orange-dark hover:underline"
+                  <span
+                    class="font-display text-sm font-bold uppercase tracking-[0.2em]"
                   >
                     {{ tiersByKey[variant.tierKey].code }}
-                  </RouterLink>
-                  <span class="text-sm text-rally-navy/70">
+                  </span>
+                  <span
+                    class="text-sm"
+                    :class="
+                      variant.tierKey === activeTierKey
+                        ? 'text-white/85'
+                        : 'text-rally-navy/70'
+                    "
+                  >
                     {{ variant.code }},
                     {{ formatStageDistance(variant.distanceKm) }} km
                   </span>
-                </li>
-              </ul>
+                </button>
+              </div>
             </div>
 
             <div class="mt-8 flex flex-wrap gap-3">
@@ -119,7 +133,7 @@
                 Nawiguj do startu
               </a>
               <a
-                :href="stage.finishMapsUrl"
+                :href="activeVariant.finishMapsUrl"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 rounded-full border border-rally-navy/15 bg-white px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-rally-navy transition-all hover:border-rally-navy/30"
@@ -138,12 +152,15 @@
           <div
             class="rounded-[2rem] bg-rally-navy-ink p-5 shadow-[0_28px_100px_rgba(0,0,0,0.18)] md:p-7"
           >
-            <StageRouteMap :key="stage.slug" :stage="stage" />
+            <StageRouteMap
+              :key="`${stage.slug}-${activeVariant.tierKey}`"
+              :stage="activeVariant"
+            />
 
             <p class="mt-5 text-sm leading-6 text-rally-snow-dim">
-              Mapa pokazuje przebieg Rajdu Okręgowego, od startu do mety lotnej.
-              Pomarańczowy marker oznacza start, biały metę. RS i KJS kończą
-              wcześniej, na dystansach podanych powyżej.
+              Mapa pokazuje trasę
+              {{ tiersByKey[activeVariant.tierKey].code }}, od startu do mety
+              lotnej. Pomarańczowy marker oznacza start, biały metę.
             </p>
           </div>
         </div>
@@ -249,7 +266,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import TheHeader from "../components/layout/TheHeader.vue";
 import TheFooter from "../components/layout/TheFooter.vue";
@@ -263,6 +280,26 @@ const isVideoConsentGranted = ref(false);
 const privacyPolicyPath = "/polityka-prywatnosci";
 
 const stage = computed(() => getStageBySlug(route.params.slug));
+const activeTierKey = ref(stage.value?.tiers[0] ?? "ro");
+
+watch(
+  () => route.params.slug,
+  () => {
+    activeTierKey.value = stage.value?.tiers[0] ?? "ro";
+  },
+);
+
+const activeVariant = computed(() => {
+  if (!stage.value) {
+    return null;
+  }
+
+  return (
+    stage.value.tierStages.find(
+      (variant) => variant.tierKey === activeTierKey.value,
+    ) ?? stage.value.tierStages[0]
+  );
+});
 
 const privacyEnhancedVideoUrl = computed(() => {
   if (!stage.value?.videoEmbedUrl) {

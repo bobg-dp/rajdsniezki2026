@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative z-0">
     <div
       ref="mapElement"
       class="h-[24rem] w-full overflow-hidden rounded-[1.5rem] bg-rally-navy-ink md:h-[30rem]"
@@ -261,6 +261,7 @@ onBeforeUnmount(() => {
 }
 
 :deep(.leaflet-container) {
+  z-index: 0;
   font-family: inherit;
 }
 
