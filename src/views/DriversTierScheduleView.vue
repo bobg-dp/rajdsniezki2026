@@ -45,6 +45,22 @@
           </button>
         </div>
 
+        <section v-if="program" class="mb-16">
+          <h2
+            class="mb-6 font-display text-sm font-bold uppercase tracking-[0.28em] text-rally-orange"
+          >
+            Program rajdu
+          </h2>
+          <RallyProgram :days="program" />
+        </section>
+
+        <h2
+          v-if="program && schedule"
+          class="mb-6 font-display text-sm font-bold uppercase tracking-[0.28em] text-rally-orange"
+        >
+          Itinerer
+        </h2>
+
         <div v-if="schedule" class="space-y-10">
           <div v-for="day in schedule" :key="day.shortDate">
             <div class="flex items-stretch">
@@ -90,7 +106,7 @@
         </div>
 
         <PendingPanel
-          v-else
+          v-else-if="!program"
           title="Harmonogram w przygotowaniu"
           :description="`Terminarz ${tier.name} zostanie opublikowany razem z regulaminem uzupełniającym. ${scheduleHint}`"
           :action-to="`/${tier.slug}/tablica`"
@@ -110,6 +126,7 @@ import TheHeader from "../components/layout/TheHeader.vue";
 import TheFooter from "../components/layout/TheFooter.vue";
 import TierPageHeader from "../components/layout/TierPageHeader.vue";
 import ItineraryTable from "../components/ui/ItineraryTable.vue";
+import RallyProgram from "../components/ui/RallyProgram.vue";
 import PendingPanel from "../components/ui/PendingPanel.vue";
 import {
   getTier,
@@ -117,6 +134,7 @@ import {
   tierKeyFromQuery,
   tiers,
 } from "../data/eventConfig.js";
+import { getRallyProgram } from "../data/rallyProgram.js";
 import { getTierSchedule } from "../data/tierContent.js";
 
 const route = useRoute();
@@ -125,6 +143,7 @@ const router = useRouter();
 const activeTierKey = ref(tierKeyFromQuery(route.query.poziom) ?? tiers[0].key);
 const tier = computed(() => getTier(activeTierKey.value));
 const schedule = computed(() => getTierSchedule(activeTierKey.value));
+const program = computed(() => getRallyProgram(activeTierKey.value));
 
 watch(
   () => route.query.poziom,
