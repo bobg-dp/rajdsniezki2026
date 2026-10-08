@@ -56,6 +56,12 @@
   </url>
 
   <url>
+    <loc>https://rajdsniezki.pl/harmonogram</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://rajdsniezki.pl/lokalizacje</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -86,12 +92,6 @@
   </url>
 
   <url>
-    <loc>https://rajdsniezki.pl/zawodnicy-ro/harmonogram</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
     <loc>https://rajdsniezki.pl/zawodnicy-ro/tablica</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -110,12 +110,6 @@
   </url>
 
   <url>
-    <loc>https://rajdsniezki.pl/zawodnicy-rs/harmonogram</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
     <loc>https://rajdsniezki.pl/zawodnicy-rs/tablica</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -129,12 +123,6 @@
 
   <url>
     <loc>https://rajdsniezki.pl/zawodnicy-kjs/dokumenty</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://rajdsniezki.pl/zawodnicy-kjs/harmonogram</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

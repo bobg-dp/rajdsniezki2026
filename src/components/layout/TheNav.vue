@@ -29,10 +29,10 @@
             <RouterLink :to="`/${tier.slug}/dokumenty`" :class="itemClass">
               Dokumenty
             </RouterLink>
-            <RouterLink :to="`/${tier.slug}/harmonogram`" :class="itemClass">
+            <RouterLink :to="`/harmonogram?poziom=${tier.key}`" :class="itemClass">
               Harmonogram
             </RouterLink>
-            <RouterLink to="/mapy" :class="itemClass">
+            <RouterLink :to="`/mapy?poziom=${tier.key}`" :class="itemClass">
               Odcinki specjalne
             </RouterLink>
             <RouterLink to="/lokalizacje" :class="itemClass">Lokalizacje</RouterLink>

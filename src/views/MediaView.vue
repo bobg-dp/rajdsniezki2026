@@ -136,7 +136,7 @@
                   <RouterLink
                     v-for="tier in tiers"
                     :key="tier.key"
-                    :to="`/${tier.slug}/harmonogram`"
+                    :to="`/harmonogram?poziom=${tier.key}`"
                     class="inline-flex items-center justify-center rounded-full border border-rally-navy/15 bg-white px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-rally-navy transition-colors duration-200 hover:border-rally-orange-dark hover:text-rally-orange-dark"
                   >
                     Harmonogram {{ tier.code }}

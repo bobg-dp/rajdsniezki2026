@@ -101,7 +101,7 @@
                       ? 'border-rally-orange bg-rally-orange text-white'
                       : 'border-rally-navy/12 text-rally-navy hover:border-rally-orange'
                   "
-                  @click="activeTierKey = variant.tierKey"
+                  @click="selectTier(variant.tierKey)"
                 >
                   <span
                     class="font-display text-sm font-bold uppercase tracking-[0.2em]"
@@ -141,7 +141,7 @@
                 Nawiguj do mety
               </a>
               <RouterLink
-                to="/#oesy"
+                :to="{ path: '/mapy', query: { poziom: activeTierKey } }"
                 class="inline-flex items-center gap-2 rounded-full border border-rally-navy/15 px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-rally-navy transition-all hover:border-rally-navy/30"
               >
                 Wszystkie odcinki
@@ -267,27 +267,51 @@
 
 <script setup>
 import { computed, ref, watch } from "vue";
-import { RouterLink, useRoute } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import TheHeader from "../components/layout/TheHeader.vue";
 import TheFooter from "../components/layout/TheFooter.vue";
 import StageRouteMap from "../components/ui/StageRouteMap.vue";
 import { getStageBySlug } from "../data/stages.js";
-import { EVENT_FULL_NAME, tiersByKey } from "../data/eventConfig.js";
+import { EVENT_FULL_NAME, tierKeyFromQuery, tiersByKey } from "../data/eventConfig.js";
 import { formatStageDistance } from "../utils/stageShape.js";
 
 const route = useRoute();
+const router = useRouter();
 const isVideoConsentGranted = ref(false);
 const privacyPolicyPath = "/polityka-prywatnosci";
 
 const stage = computed(() => getStageBySlug(route.params.slug));
-const activeTierKey = ref(stage.value?.tiers[0] ?? "ro");
+
+function tierForRoute() {
+  const requestedTier = tierKeyFromQuery(route.query.poziom);
+
+  if (requestedTier && stage.value?.tiers.includes(requestedTier)) {
+    return requestedTier;
+  }
+
+  return stage.value?.tiers[0] ?? "ro";
+}
+
+const activeTierKey = ref(tierForRoute());
 
 watch(
-  () => route.params.slug,
+  () => [route.params.slug, route.query.poziom],
   () => {
-    activeTierKey.value = stage.value?.tiers[0] ?? "ro";
+    activeTierKey.value = tierForRoute();
   },
 );
+
+function selectTier(tierKey) {
+  activeTierKey.value = tierKey;
+
+  if (route.query.poziom === tierKey) {
+    return;
+  }
+
+  router.replace({
+    query: { ...route.query, poziom: tierKey },
+  });
+}
 
 const activeVariant = computed(() => {
   if (!stage.value) {

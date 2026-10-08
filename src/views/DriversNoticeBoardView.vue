@@ -102,12 +102,28 @@
                       Dokumenty
                     </h2>
                   </div>
-                  <p
+                  <div
                     v-if="fetchedAtLabel"
-                    class="text-xs text-gray-500 uppercase tracking-wider"
+                    class="flex flex-col items-start gap-2 md:items-end"
                   >
-                    Ostatnie odświeżenie: {{ fetchedAtLabel }}
-                  </p>
+                    <p class="text-sm font-medium uppercase tracking-wider text-gray-800">
+                      Ostatnie odświeżenie: {{ fetchedAtLabel }}
+                    </p>
+                    <a
+                      href="https://driftingpixel.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-gray-400 transition-colors hover:text-gray-600"
+                    >
+                      <span>Napędzane przez</span>
+                      <img
+                        src="/assets/brand/drifting-pixel.webp"
+                        alt=""
+                        class="h-4 w-auto"
+                      />
+                      <span>DriftingPixel.com</span>
+                    </a>
+                  </div>
                 </div>
 
                 <div class="space-y-4">

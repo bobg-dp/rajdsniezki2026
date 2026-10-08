@@ -92,6 +92,11 @@
           class="flex items-center gap-2 text-xs text-rally-snow-dim/70 transition-colors hover:text-white"
         >
           <span>Projekt i realizacja:</span>
+          <img
+            src="/assets/brand/drifting-pixel.webp"
+            alt=""
+            class="h-8 w-auto"
+          />
           <span class="font-semibold">DriftingPixel.com</span>
         </a>
 

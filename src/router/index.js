@@ -6,8 +6,8 @@ const SUFFIX = `| ${EVENT_FULL_NAME}`;
 
 /**
  * Strefa zawodnika jest identyczna dla każdego poziomu imprezy (RO / RS / KJS),
- * więc trasy powstają z definicji poziomu w `eventConfig.js`. Dodanie kolejnej
- * rangi nie wymaga dopisywania tras ręcznie.
+ * więc trasy powstają z definicji poziomu w `eventConfig.js`. Harmonogram jest
+ * wyjątkiem: jedna strona z przełącznikiem, a stare adresy tylko przekierowują.
  */
 function buildTierRoutes(tier) {
   const base = `/${tier.slug}`;
@@ -44,17 +44,7 @@ function buildTierRoutes(tier) {
     },
     {
       path: `${base}/harmonogram`,
-      name: `drivers-${tier.key}-schedule`,
-      component: () => import("../views/DriversTierScheduleView.vue"),
-      props: { tierKey: tier.key },
-      meta: {
-        title: `Harmonogram ${tier.code} ${SUFFIX}`,
-        description: `Harmonogram ${tier.name} podczas ${EVENT_FULL_NAME}: odbiory, badania kontrolne, odcinki i ceremonie.`,
-        breadcrumbs: [
-          ...crumbs,
-          { name: "Harmonogram", path: `${base}/harmonogram` },
-        ],
-      },
+      redirect: { path: "/harmonogram", query: { poziom: tier.key } },
     },
     {
       path: `${base}/tablica`,
@@ -209,6 +199,19 @@ export const routes = [
       breadcrumbs: [
         { name: "Strona główna", path: "/" },
         { name: "Lokalizacje", path: "/lokalizacje" },
+      ],
+    },
+  },
+  {
+    path: "/harmonogram",
+    name: "schedule",
+    component: () => import("../views/DriversTierScheduleView.vue"),
+    meta: {
+      title: `Harmonogram ${SUFFIX}`,
+      description: `Harmonogram ${EVENT_FULL_NAME}: osobne itinerery Rajdu Okręgowego, Rally Sprintu i KJS. Godziny pierwszej załogi, odcinki i serwisy.`,
+      breadcrumbs: [
+        { name: "Strona główna", path: "/" },
+        { name: "Harmonogram", path: "/harmonogram" },
       ],
     },
   },

@@ -43,7 +43,7 @@ export const organizer = {
 
 /**
  * Trzy poziomy imprezy. Każdy poziom generuje własny zestaw tras
- * (strefa zawodnika, tablica ogłoszeń, dokumenty, harmonogram).
+ * (strefa zawodnika, tablica ogłoszeń, dokumenty). Harmonogram jest wspólny.
  */
 export const tiers = [
   {
@@ -119,6 +119,12 @@ export const tiers = [
 export const tiersByKey = Object.fromEntries(
   tiers.map((tier) => [tier.key, tier]),
 );
+
+export function tierKeyFromQuery(value) {
+  const key = Array.isArray(value) ? value[0] : value;
+
+  return tiers.some((tier) => tier.key === key) ? key : null;
+}
 
 export function getTier(key) {
   return tiersByKey[key];

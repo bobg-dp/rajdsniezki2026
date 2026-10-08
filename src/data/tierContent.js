@@ -1,21 +1,48 @@
 /**
  * Treści specyficzne dla poziomów imprezy.
  *
- * Dokumenty i harmonogramy Rajdu Śnieżki nie zostały jeszcze opublikowane,
- * dlatego listy są puste – widoki renderują wtedy panel „w przygotowaniu”.
- * Po otrzymaniu plików wystaw je w `public/assets/files/` i dopisz tutaj.
+ * Dokumenty RO, RS i KJS leżą w `public/assets/files`.
+ * Harmonogramy trzech poziomów imprezy są w `itineraries.js`.
  */
+import { getItinerary } from "./itineraries.js";
 
 const documents = {
-  ro: [],
-  rs: [],
-  kjs: [],
-};
-
-const schedules = {
-  ro: [],
-  rs: [],
-  kjs: [],
+  ro: [
+    {
+      title: "Regulamin Uzupełniający",
+      subtitle: "Rajd Śnieżki 2026 — RO",
+      fileName: "regulamin-uzupelniajacy-ro.pdf",
+    },
+    {
+      title: "Regulamin RSMDŚ 2026",
+      subtitle: "Rajdowe Samochodowe Mistrzostwa Dolnego Śląska",
+      fileName: "regulamin-rsmds-2026.pdf",
+    },
+  ],
+  rs: [
+    {
+      title: "Regulamin Uzupełniający",
+      subtitle: "Rajd Śnieżki 2026 — RS",
+      fileName: "regulamin-uzupelniajacy-rs.pdf",
+    },
+    {
+      title: "Regulamin RPP 2026",
+      subtitle: "Rajdowy Puchar Południa",
+      fileName: "regulamin-rpp-2026.pdf",
+    },
+  ],
+  kjs: [
+    {
+      title: "Regulamin Uzupełniający",
+      subtitle: "Rajd Śnieżki 2026 — KJS",
+      fileName: "regulamin-uzupelniajacy-kjs.pdf",
+    },
+    {
+      title: "Regulamin AIS 2026",
+      subtitle: "Amatorskie Imprezy Samochodowe",
+      fileName: "regulamin-ais-2026.pdf",
+    },
+  ],
 };
 
 /**
@@ -34,7 +61,7 @@ const tierShortcuts = [
     key: "schedule",
     label: "Harmonogram",
     desc: "Szczegółowy plan wydarzeń i terminarz rajdu",
-    to: ":base/harmonogram",
+    to: "/harmonogram?poziom=:tier",
   },
   {
     key: "documents",
@@ -46,7 +73,7 @@ const tierShortcuts = [
     key: "stages",
     label: "Mapy i odcinki",
     desc: "Przebieg odcinków specjalnych i najważniejsze informacje o OS-ach",
-    to: "/mapy",
+    to: "/mapy?poziom=:tier",
   },
   {
     key: "locations",
@@ -67,12 +94,14 @@ export function getTierDocuments(tierKey) {
 }
 
 export function getTierSchedule(tierKey) {
-  return schedules[tierKey] ?? [];
+  return getItinerary(tierKey);
 }
 
 export function getTierShortcuts(tier) {
   return tierShortcuts.map((shortcut) => ({
     ...shortcut,
-    to: shortcut.to?.replace(":base", `/${tier.slug}`),
+    to: shortcut.to
+      ?.replace(":base", `/${tier.slug}`)
+      .replace(":tier", tier.key),
   }));
 }

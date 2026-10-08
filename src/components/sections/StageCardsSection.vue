@@ -39,7 +39,7 @@
               ? 'border-rally-orange bg-rally-orange text-white'
               : 'border-white/15 text-rally-snow-dim hover:border-rally-orange/45 hover:text-white'
           "
-          @click="activeTierKey = tier.key"
+          @click="selectTier(tier.key)"
         >
           <span
             class="font-display text-xs font-bold uppercase tracking-[0.22em]"
@@ -61,7 +61,7 @@
         <RouterLink
           v-for="stage in visibleStages"
           :key="stage.slug"
-          :to="stage.path"
+          :to="{ path: stage.path, query: { poziom: activeTierKey } }"
           class="group flex h-full flex-col border border-white/10 bg-white/[0.04] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-rally-orange/45 hover:bg-white/[0.07]"
         >
           <div class="flex items-start justify-between gap-3">
@@ -143,16 +143,43 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { computed, ref, watch } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { getStagesForTier } from "../../data/stages.js";
-import { tiers, tiersByKey } from "../../data/eventConfig.js";
+import { tierKeyFromQuery, tiers, tiersByKey } from "../../data/eventConfig.js";
 import { formatStageDistance } from "../../utils/stageShape.js";
 import StageShapePreview from "../ui/StageShapePreview.vue";
 
-// Domyślnie pokazujemy najwyższy poziom – to jego pełne przebiegi trafiają
-// do prerenderowanego HTML-a.
-const activeTierKey = ref(tiers[0].key);
+const route = useRoute();
+const router = useRouter();
+
+// Bez parametru zostaje najwyższy poziom. Menu zawodnika podaje ?poziom=.
+const activeTierKey = ref(tierKeyFromQuery(route.query.poziom) ?? tiers[0].key);
 const activeTier = computed(() => tiersByKey[activeTierKey.value]);
 const visibleStages = computed(() => getStagesForTier(activeTierKey.value));
+
+watch(
+  () => route.query.poziom,
+  (value) => {
+    const nextTierKey = tierKeyFromQuery(value) ?? tiers[0].key;
+
+    if (nextTierKey !== activeTierKey.value) {
+      activeTierKey.value = nextTierKey;
+    }
+  },
+);
+
+function selectTier(tierKey) {
+  activeTierKey.value = tierKey;
+
+  if (route.query.poziom === tierKey) {
+    return;
+  }
+
+  router.replace({
+    path: route.path,
+    query: { ...route.query, poziom: tierKey },
+    hash: route.hash,
+  });
+}
 </script>

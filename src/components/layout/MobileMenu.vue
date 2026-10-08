@@ -77,11 +77,18 @@
           Dokumenty
         </RouterLink>
         <RouterLink
-          :to="`/${tier.slug}/harmonogram`"
+          :to="`/harmonogram?poziom=${tier.key}`"
           :class="subItemClass"
           @click="$emit('close')"
         >
           Harmonogram
+        </RouterLink>
+        <RouterLink
+          :to="`/mapy?poziom=${tier.key}`"
+          :class="subItemClass"
+          @click="$emit('close')"
+        >
+          Odcinki specjalne
         </RouterLink>
       </div>
 

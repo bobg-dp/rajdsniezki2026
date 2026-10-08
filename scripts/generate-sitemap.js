@@ -14,6 +14,7 @@ const baseRoutes = [
   { path: "/partnerzy", changefreq: "monthly", priority: "0.6" },
   { path: "/media", changefreq: "monthly", priority: "0.6" },
   { path: "/mapy", changefreq: "weekly", priority: "0.8" },
+  { path: "/harmonogram", changefreq: "weekly", priority: "0.8" },
   { path: "/lokalizacje", changefreq: "monthly", priority: "0.7" },
   { path: "/kontakt", changefreq: "yearly", priority: "0.5" },
   { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
@@ -22,7 +23,6 @@ const baseRoutes = [
 const tierRoutes = tiers.flatMap((tier) => [
   { path: `/${tier.slug}`, changefreq: "weekly", priority: "0.8" },
   { path: `/${tier.slug}/dokumenty`, changefreq: "weekly", priority: "0.7" },
-  { path: `/${tier.slug}/harmonogram`, changefreq: "weekly", priority: "0.7" },
   { path: `/${tier.slug}/tablica`, changefreq: "daily", priority: "0.7" },
 ]);
 

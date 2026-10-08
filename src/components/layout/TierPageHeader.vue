@@ -25,7 +25,7 @@
     <h1
       class="text-rally-slant mt-2 font-display text-4xl font-black uppercase leading-[0.9] text-rally-navy md:text-6xl"
     >
-      Zawodnicy — {{ tier.code }}
+      {{ title || `Zawodnicy — ${tier.code}` }}
       <template v-if="subtitle"><br />{{ subtitle }}</template>
     </h1>
 
@@ -34,7 +34,7 @@
     </p>
 
     <p
-      v-if="!tier.licenceRequired"
+      v-if="showLicenceNote && !tier.licenceRequired"
       class="mt-4 inline-flex items-center gap-2 border border-rally-orange/40 bg-rally-orange/10 px-4 py-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rally-orange-dark"
     >
       Bez licencji sportowej
@@ -48,8 +48,10 @@ import { EVENT_FULL_NAME } from "../../data/eventConfig.js";
 
 const props = defineProps({
   tier: { type: Object, required: true },
+  title: { type: String, default: null },
   subtitle: { type: String, default: null },
   showTagline: { type: Boolean, default: false },
+  showLicenceNote: { type: Boolean, default: true },
 });
 
 const confirmedCycles = computed(() =>
