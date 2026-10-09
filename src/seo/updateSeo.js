@@ -24,7 +24,7 @@ function toAbsoluteUrl(value = '/') {
 }
 
 function buildBreadcrumbSchema(breadcrumbs = []) {
-  if (!breadcrumbs.length) return null
+  if (breadcrumbs.length < 2) return null
 
   return {
     '@type': 'BreadcrumbList',
@@ -63,6 +63,15 @@ function buildPageSchema(canonicalUrl, seo) {
           addressCountry: "PL",
         },
       },
+      subEvent: tiers.map((tier) => ({
+        "@type": "SportsEvent",
+        name: `${EVENT_FULL_NAME} – ${tier.name}`,
+        url: `${SITE_URL}/${tier.slug}`,
+        startDate: schedule.startIso,
+        endDate: schedule.endIso,
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        eventStatus: "https://schema.org/EventScheduled",
+      })),
       organizer: {
         "@type": "MotorSportsOrganization",
         name: organizer.name,
@@ -186,10 +195,11 @@ export function resolveSeo(route) {
 
     return {
       title: `${stage.headline} | ${SITE_NAME}`,
-      description: `${stage.headline}, ${SITE_NAME}. ${stage.typeLabel}, ${stage.dateLabel}, ${stage.distanceKm.toFixed(2)} km. Sprawdź zarys trasy oraz szybkie linki do startu i mety.`,
+      description: `${stage.headline} podczas ${SITE_NAME}: Rajd Okręgowy, Rally Sprint i KJS. ${stage.dateLabel}, ${stage.distanceKm.toFixed(2)} km. Sprawdź zarys trasy oraz szybkie linki do startu i mety.`,
       image: DEFAULT_IMAGE,
       breadcrumbs: [
         { name: "Strona główna", path: "/" },
+        { name: "Mapy i odcinki", path: "/mapy" },
         { name: stage.headline, path: stage.path },
       ],
       canonicalPath: stage.path,

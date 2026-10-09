@@ -1,6 +1,6 @@
 import HomeView from "../views/HomeView.vue";
 import { allNews } from "../data/news.js";
-import { EVENT_FULL_NAME, location, tiers } from "../data/eventConfig.js";
+import { EVENT_FULL_NAME, location, schedule, tiers } from "../data/eventConfig.js";
 
 const SUFFIX = `| ${EVENT_FULL_NAME}`;
 
@@ -83,8 +83,8 @@ export const routes = [
     name: "home",
     component: HomeView,
     meta: {
-      title: `${EVENT_FULL_NAME} | Rajd samochodowy w Karkonoszach`,
-      description: `Oficjalna strona ${EVENT_FULL_NAME}. Trzy poziomy imprezy: Rajd Okręgowy, Rally Sprint i KJS. Informacje dla kibiców i zawodników, odcinki specjalne, dokumenty i aktualności.`,
+      title: `${EVENT_FULL_NAME} | Rajd Okręgowy, Rally Sprint i KJS`,
+      description: `Oficjalna strona Rajdu Śnieżki ${schedule.dateLabel} w Karkonoszach. Rajd Okręgowy, Rally Sprint i Konkursowa Jazda Samochodem na odcinkach Michałowice i Stara Kamienica.`,
       image: "/logo.png",
       schemaType: "SportsEvent",
       breadcrumbs: [{ name: "Strona główna", path: "/" }],
