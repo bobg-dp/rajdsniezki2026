@@ -34,7 +34,7 @@ const newsArticles = [
       },
       {
         label: "Zapisy KJS do 16 października",
-        to: "https://rallydevil.com/otwarte-zapisy",
+        to: "https://rallydevil.com/rajd/rajd-sniezki-2026-kjs",
         theme: "dark",
       },
     ],
