@@ -10,6 +10,7 @@
           <div :class="dropdownClass" class="min-w-48">
             <RouterLink to="/o-rajdzie" :class="itemClass">O rajdzie</RouterLink>
             <RouterLink to="/aktualnosci" :class="itemClass">Aktualności</RouterLink>
+            <RouterLink to="/filmy" :class="itemClass">Filmy</RouterLink>
           </div>
         </li>
 
@@ -34,6 +35,9 @@
             </RouterLink>
             <RouterLink :to="`/mapy?poziom=${tier.key}`" :class="itemClass">
               Odcinki specjalne
+            </RouterLink>
+            <RouterLink :to="`/filmy?poziom=${tier.key}`" :class="itemClass">
+              Filmy
             </RouterLink>
             <RouterLink to="/lokalizacje" :class="itemClass">Lokalizacje</RouterLink>
             <RouterLink to="/lista-startowa" :class="itemClass">

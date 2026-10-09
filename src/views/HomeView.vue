@@ -30,6 +30,7 @@
       <SpeedDivider from-color="#ffffff" to-color="#0e2133" direction="left" />
 
       <StageCardsSection />
+      <FilmsSection />
       <FansInfoSection />
 
       <!-- Kibice -> Partnerzy -->
@@ -54,6 +55,7 @@ import NewsSection from "../components/sections/NewsSection.vue";
 import ShortcutsSection from "../components/sections/ShortcutsSection.vue";
 import TiersSection from "../components/sections/TiersSection.vue";
 import StageCardsSection from "../components/sections/StageCardsSection.vue";
+import FilmsSection from "../components/sections/FilmsSection.vue";
 import PartnersSection from "../components/sections/PartnersSection.vue";
 import OrganizersSection from "../components/sections/OrganizersSection.vue";
 </script>

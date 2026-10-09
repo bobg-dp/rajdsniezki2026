@@ -152,6 +152,7 @@ const navLinks = [
   { to: "/aktualnosci", label: "Aktualności" },
   ...tiers.map((tier) => ({ to: `/${tier.slug}`, label: tier.navLabel })),
   { to: "/mapy", label: "Mapy i odcinki" },
+  { to: "/filmy", label: "Filmy" },
   { to: "/partnerzy", label: "Partnerzy" },
   { to: "/kontakt", label: "Kontakt" },
 ];

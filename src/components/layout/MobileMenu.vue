@@ -48,6 +48,9 @@
         <RouterLink to="/aktualnosci" :class="subItemClass" @click="$emit('close')">
           Aktualności
         </RouterLink>
+        <RouterLink to="/filmy" :class="subItemClass" @click="$emit('close')">
+          Filmy
+        </RouterLink>
       </div>
 
       <div
@@ -89,6 +92,13 @@
           @click="$emit('close')"
         >
           Odcinki specjalne
+        </RouterLink>
+        <RouterLink
+          :to="`/filmy?poziom=${tier.key}`"
+          :class="subItemClass"
+          @click="$emit('close')"
+        >
+          Filmy
         </RouterLink>
         <RouterLink
           to="/lista-startowa"

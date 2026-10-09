@@ -203,6 +203,20 @@ export const routes = [
     },
   },
   {
+    path: "/filmy",
+    name: "films",
+    component: () => import("../views/FilmsView.vue"),
+    meta: {
+      title: `Filmy ${SUFFIX}`,
+      description:
+        "Prezentacje tras Rajdu Śnieżki 2026 z kanału Automobilklubu Karkonosze: Rajd Okręgowy, Rally Sprint i KJS.",
+      breadcrumbs: [
+        { name: "Strona główna", path: "/" },
+        { name: "Filmy", path: "/filmy" },
+      ],
+    },
+  },
+  {
     path: "/lista-startowa",
     name: "entry-list",
     component: () => import("../views/EntryListView.vue"),

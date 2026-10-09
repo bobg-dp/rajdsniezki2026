@@ -106,13 +106,16 @@
                     <span class="font-semibold text-rally-navy">
                       Treści osadzone i zasoby zewnętrzne.
                     </span>
-                    Na wybranych podstronach strona może korzystać z materiałów
-                    wideo z YouTube, kafelków map z OpenStreetMap oraz pojedynczych
+                    Na stronie głównej, na podstronie filmów i na wybranych
+                    podstronach odcinków strona może korzystać z materiałów wideo
+                    z YouTube, kafelków map z OpenStreetMap oraz pojedynczych
                     zasobów technicznych lub graficznych udostępnianych z domen
-                    zewnętrznych. W przypadku materiałów wideo z YouTube treść nie
+                    zewnętrznych. Nagrania pochodzą z kanału Automobilklubu
+                    Karkonosze. W przypadku materiałów wideo z YouTube treść nie
                     jest ładowana automatycznie, lecz dopiero po wyrażeniu zgody
-                    przez użytkownika. Po załadowaniu takiej treści Twoja
-                    przeglądarka nawiązuje połączenie bezpośrednio z serwerem danego
+                    przez użytkownika, w trybie podwyższonej prywatności. Po
+                    załadowaniu takiej treści Twoja przeglądarka nawiązuje
+                    połączenie bezpośrednio z serwerem danego
                     dostawcy, który może otrzymać dane techniczne, takie jak adres
                     IP, informacje o urządzeniu, przeglądarce, czasie połączenia i
                     adresie podstrony, z której nastąpiło odwołanie. Podstawą

@@ -68,6 +68,12 @@
   </url>
 
   <url>
+    <loc>https://rajdsniezki.pl/filmy</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://rajdsniezki.pl/lokalizacje</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
