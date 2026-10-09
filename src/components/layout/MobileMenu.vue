@@ -90,6 +90,13 @@
         >
           Odcinki specjalne
         </RouterLink>
+        <RouterLink
+          to="/lista-startowa"
+          :class="subItemClass"
+          @click="$emit('close')"
+        >
+          Lista startowa / Zapisy
+        </RouterLink>
       </div>
 
       <div class="border-t border-rally-steel">

@@ -203,6 +203,19 @@ export const routes = [
     },
   },
   {
+    path: "/lista-startowa",
+    name: "entry-list",
+    component: () => import("../views/EntryListView.vue"),
+    meta: {
+      title: `Lista startowa ${SUFFIX}`,
+      description: `Listy startowe ${EVENT_FULL_NAME} pojawią się po zamknięciu zapisów. Do tego czasu można zgłosić się do Rajdu Okręgowego, Rally Sprintu i KJS.`,
+      breadcrumbs: [
+        { name: "Strona główna", path: "/" },
+        { name: "Lista startowa", path: "/lista-startowa" },
+      ],
+    },
+  },
+  {
     path: "/harmonogram",
     name: "schedule",
     component: () => import("../views/DriversTierScheduleView.vue"),

@@ -83,9 +83,9 @@ const tierShortcuts = [
   },
   {
     key: "entry-list",
-    label: "Lista startowa",
-    desc: "Lista zgłoszeń zostanie opublikowana po zamknięciu zapisów",
-    disabled: true,
+    label: "Lista startowa / Zapisy",
+    desc: "Zgłoszenia są otwarte. Listy startowe pojawią się tutaj po ich zamknięciu",
+    to: "/lista-startowa",
   },
 ];
 

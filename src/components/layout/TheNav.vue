@@ -36,7 +36,9 @@
               Odcinki specjalne
             </RouterLink>
             <RouterLink to="/lokalizacje" :class="itemClass">Lokalizacje</RouterLink>
-            <span :class="disabledItemClass">Lista startowa</span>
+            <RouterLink to="/lista-startowa" :class="itemClass">
+              Lista startowa / Zapisy
+            </RouterLink>
           </div>
         </li>
 
@@ -83,9 +85,6 @@ const dropdownClass =
 
 const itemClass =
   "block px-5 py-3 font-display font-semibold uppercase text-sm text-rally-navy border-b border-gray-100 hover:bg-rally-orange hover:text-rally-navy transition-colors duration-150";
-
-const disabledItemClass =
-  "block px-5 py-3 font-display font-semibold uppercase text-sm text-gray-400 cursor-not-allowed select-none";
 
 const ChevronIcon = defineComponent({
   render() {
