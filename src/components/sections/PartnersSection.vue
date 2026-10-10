@@ -29,6 +29,7 @@
             :logo="item.logo"
             :href="item.href"
             :link-title="item.linkTitle"
+            :caption="item.caption"
           />
         </div>
       </div>
@@ -62,7 +63,7 @@ const groups = [
   {
     title: "Gminy partnerskie",
     items: municipalPartners,
-    gridClass: "mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2",
+    gridClass: "mx-auto grid max-w-4xl grid-cols-2 gap-4",
   },
   {
     title: "Patroni medialni",

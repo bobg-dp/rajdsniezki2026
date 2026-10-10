@@ -5,17 +5,33 @@
     :title="linkTitle || label"
     :target="href ? '_blank' : undefined"
     :rel="href ? 'noopener noreferrer' : undefined"
-    class="relative bg-gray-50 border border-gray-200 flex items-center justify-center p-4 overflow-hidden transition-all duration-300 group"
-    :class="href ? 'hover:border-rally-orange hover:bg-white hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(19,20,20,0.14)]' : 'hover:border-rally-orange hover:shadow-[0_10px_24px_rgba(19,20,20,0.08)]'"
-    style="aspect-ratio: 3/2;"
+    class="relative flex items-center justify-center overflow-hidden border border-gray-200 bg-gray-50 p-4 transition-all duration-300 group"
+    :class="[
+      href
+        ? 'hover:-translate-y-1 hover:border-rally-orange hover:bg-white hover:shadow-[0_16px_40px_rgba(19,20,20,0.14)]'
+        : 'hover:border-rally-orange hover:shadow-[0_10px_24px_rgba(19,20,20,0.08)]',
+      caption ? 'flex-col gap-3' : '',
+    ]"
+    :style="caption ? undefined : { aspectRatio: '3/2' }"
   >
     <div
       class="absolute inset-x-0 top-0 h-1 bg-rally-orange origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
       aria-hidden="true"
     ></div>
 
+    <template v-if="logo && caption">
+      <img
+        :src="logo"
+        alt=""
+        class="h-36 w-full object-contain transition-transform duration-300 group-hover:scale-105 sm:h-48"
+        loading="lazy"
+      />
+      <span class="text-center font-display text-sm font-bold uppercase leading-tight tracking-wide text-black">
+        {{ caption }}
+      </span>
+    </template>
     <img
-      v-if="logo"
+      v-else-if="logo"
       :src="logo"
       :alt="label"
       class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
@@ -43,5 +59,6 @@ defineProps({
   logo:  { type: String, default: null },
   href: { type: String, default: null },
   linkTitle: { type: String, default: null },
+  caption: { type: String, default: null },
 })
 </script>

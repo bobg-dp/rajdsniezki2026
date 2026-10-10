@@ -125,6 +125,20 @@ export const municipalPartners = [
     href: "https://powiatkarkonoski.eu/",
     linkTitle: "Powiat Karkonoski",
   },
+  {
+    name: "Stara Kamienica",
+    logo: "/assets/partners/gminy/stara-kamienica.webp",
+    href: "https://strona.starakamienica.pl/",
+    linkTitle: "Gmina Stara Kamienica",
+    caption: "Gmina Stara Kamienica",
+  },
+  {
+    name: "Piechowice",
+    logo: "/assets/partners/gminy/piechowice.webp",
+    href: "https://piechowice.pl/",
+    linkTitle: "Miasto Piechowice",
+    caption: "Miasto Piechowice",
+  },
 ];
 
 export const mediaPatrons = [
