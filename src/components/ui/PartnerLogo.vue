@@ -10,16 +10,30 @@
       href
         ? 'hover:-translate-y-1 hover:border-rally-orange hover:bg-white hover:shadow-[0_16px_40px_rgba(19,20,20,0.14)]'
         : 'hover:border-rally-orange hover:shadow-[0_10px_24px_rgba(19,20,20,0.08)]',
-      caption ? 'flex-col gap-3' : '',
+      caption && prominent ? 'flex-col gap-3' : '',
     ]"
-    :style="caption ? undefined : { aspectRatio: '3/2' }"
+    :style="caption && prominent ? undefined : { aspectRatio: '3/2' }"
   >
     <div
       class="absolute inset-x-0 top-0 h-1 bg-rally-orange origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
       aria-hidden="true"
     ></div>
 
-    <template v-if="logo && caption">
+    <span
+      v-if="logo && caption && !prominent"
+      class="flex h-full w-full flex-col items-center justify-center gap-2"
+    >
+      <img
+        :src="logo"
+        alt=""
+        class="min-h-0 w-full flex-1 object-contain transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+      <span class="shrink-0 text-center font-display text-sm font-bold uppercase leading-tight tracking-wide text-black">
+        {{ caption }}
+      </span>
+    </span>
+    <template v-else-if="logo && caption">
       <img
         :src="logo"
         alt=""
@@ -60,5 +74,6 @@ defineProps({
   href: { type: String, default: null },
   linkTitle: { type: String, default: null },
   caption: { type: String, default: null },
+  prominent: { type: Boolean, default: false },
 })
 </script>

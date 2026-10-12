@@ -73,6 +73,7 @@ export const partners = [
     logo: "/assets/partners/renault-dzieciolowski.svg",
     href: "https://dzieciolowski.renault.pl/",
     linkTitle: "Dzięciołowski – autoryzowany koncesjoner Renault w Jeleniej Górze",
+    caption: "Renault Dzięciołowski",
   },
   {
     name: "Pod Tłustym Prosiakiem",
@@ -85,6 +86,7 @@ export const partners = [
     logo: "/assets/partners/zst-mechanik.webp",
     href: "https://zstmechanik.pl/",
     linkTitle: "Zespół Szkół Technicznych „Mechanik” w Jeleniej Górze",
+    caption: "ZST Mechanik",
   },
   {
     name: "Galeria Sudecka",

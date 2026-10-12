@@ -30,6 +30,7 @@
             :href="item.href"
             :link-title="item.linkTitle"
             :caption="item.caption"
+            :prominent="group.prominent"
           />
         </div>
       </div>
@@ -64,6 +65,7 @@ const groups = [
     title: "Gminy partnerskie",
     items: municipalPartners,
     gridClass: "mx-auto grid max-w-4xl grid-cols-2 gap-4",
+    prominent: true,
   },
   {
     title: "Patroni medialni",
