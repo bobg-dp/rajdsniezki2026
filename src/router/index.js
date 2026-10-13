@@ -182,7 +182,7 @@ export const routes = [
     component: () => import("../views/MediaView.vue"),
     meta: {
       title: `Media ${SUFFIX}`,
-      description: `Strefa mediów ${EVENT_FULL_NAME} z bezpośrednim dostępem do formularza akredytacji prasowej.`,
+      description: `Strefa mediów ${EVENT_FULL_NAME}: godziny biura prasowego, akredytacji i parku serwisowego oraz formularz akredytacji.`,
       breadcrumbs: [
         { name: "Strona główna", path: "/" },
         { name: "Media", path: "/media" },

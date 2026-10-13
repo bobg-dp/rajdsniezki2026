@@ -22,8 +22,8 @@
               class="mt-5 max-w-3xl text-base leading-7 text-rally-navy/75 md:text-lg md:leading-8"
             >
               Podstrona dla przedstawicieli mediów zainteresowanych obsługą
-              Rajdu Śnieżki 2026. Poniżej znajdziesz bezpośredni odnośnik do
-              formularza akredytacyjnego.
+              Rajdu Śnieżki 2026. Poniżej są godziny pracy biur i parku
+              serwisowego oraz odnośnik do formularza akredytacyjnego.
             </p>
           </header>
 
@@ -60,6 +60,66 @@
                 <span class="text-sm uppercase tracking-[0.18em] text-rally-navy/55">
                   insidepzm.pl
                 </span>
+              </div>
+            </section>
+
+            <section class="mt-8">
+              <p
+                class="font-display text-sm font-bold uppercase tracking-[0.22em] text-rally-orange-dark"
+              >
+                Harmonogram
+              </p>
+              <h2
+                class="mt-4 font-display text-2xl font-black uppercase text-rally-navy md:text-3xl"
+              >
+                Godziny pracy biur i parku serwisowego
+              </h2>
+              <p
+                class="mt-4 max-w-3xl text-[15px] leading-7 text-rally-navy/80 md:text-base md:leading-8"
+              >
+                Biuro Rajdu i biuro prasowe działają w Zespole Szkół
+                Technicznych „Mechanik”. Akredytacje wydawane są tylko w
+                sobotę.
+              </p>
+
+              <div class="mt-8 grid gap-4 md:grid-cols-2">
+                <article
+                  v-for="day in mediaOfficeHours"
+                  :key="day.date"
+                  class="overflow-hidden rounded-[1.5rem] border border-black/8"
+                >
+                  <header class="bg-rally-navy px-6 py-5 text-white">
+                    <p
+                      class="font-display text-xs font-bold uppercase tracking-[0.28em] text-rally-orange"
+                    >
+                      {{ day.weekday }}
+                    </p>
+                    <p class="mt-2 font-display text-3xl font-black uppercase leading-none">
+                      {{ day.date }}
+                    </p>
+                  </header>
+                  <ul>
+                    <li
+                      v-for="place in day.places"
+                      :key="place.name"
+                      class="flex items-center justify-between gap-4 border-t border-black/8 px-6 py-4"
+                    >
+                      <p class="font-display text-sm font-bold uppercase tracking-[0.08em] text-rally-navy">
+                        {{ place.name }}
+                      </p>
+                      <p
+                        class="shrink-0 font-display tabular-nums leading-none"
+                        :class="
+                          place.hours
+                            ? 'text-lg font-black text-rally-navy'
+                            : 'text-xs font-bold uppercase tracking-[0.16em] text-rally-navy/35'
+                        "
+                      >
+                        {{ place.hours ?? "Nieczynne" }}
+                      </p>
+                    </li>
+                  </ul>
+                </article>
               </div>
             </section>
 
@@ -158,4 +218,27 @@ import { RouterLink } from "vue-router";
 import TheFooter from "../components/layout/TheFooter.vue";
 import TheHeader from "../components/layout/TheHeader.vue";
 import { tiers } from "../data/eventConfig.js";
+
+const mediaOfficeHours = [
+  {
+    weekday: "Sobota",
+    date: "17.10.2026",
+    places: [
+      { name: "Biuro Rajdu", hours: "08:00–16:00" },
+      { name: "Biuro prasowe", hours: "08:00–16:00" },
+      { name: "Akredytacje dla mediów", hours: "08:00–14:00" },
+      { name: "Park serwisowy", hours: null },
+    ],
+  },
+  {
+    weekday: "Niedziela",
+    date: "18.10.2026",
+    places: [
+      { name: "Biuro Rajdu", hours: "07:30–20:00" },
+      { name: "Biuro prasowe", hours: "07:30–20:00" },
+      { name: "Akredytacje dla mediów", hours: null },
+      { name: "Park serwisowy", hours: "06:00–20:00" },
+    ],
+  },
+];
 </script>

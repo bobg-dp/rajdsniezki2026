@@ -20,6 +20,7 @@
       "binding": "rajdsniezki",
       "database_name": "rajdsniezki",
       "database_id": "47a71a68-1139-4302-813b-1856f4840fa4",
+      "migrations_dir": "worker/migrations",
     },
   ],
   "vars": {
