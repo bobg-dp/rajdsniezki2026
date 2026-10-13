@@ -18,7 +18,7 @@
               rajdsniezki.pl.
             </p>
             <p class="mt-4 text-sm font-medium uppercase tracking-[0.18em] text-rally-navy/55">
-              Obowiązuje od 25 maja 2026 r.
+              Obowiązuje od 25 maja 2026 r. Ostatnia zmiana: 12 października 2026 r.
             </p>
           </header>
 
@@ -113,15 +113,19 @@
                     zewnętrznych. Nagrania pochodzą z kanału Automobilklubu
                     Karkonosze. W przypadku materiałów wideo z YouTube treść nie
                     jest ładowana automatycznie, lecz dopiero po wyrażeniu zgody
-                    przez użytkownika, w trybie podwyższonej prywatności. Po
+                    przez użytkownika, w trybie podwyższonej prywatności. Zgoda
+                    jest dobrowolna i obejmuje wszystkie filmy na stronie. Zostaje
+                    zapisana lokalnie w przeglądarce i nie jest wysyłana na serwer.
+                    Można ją wycofać w dowolnym momencie na tej podstronie. Po
                     załadowaniu takiej treści Twoja przeglądarka nawiązuje
                     połączenie bezpośrednio z serwerem danego
                     dostawcy, który może otrzymać dane techniczne, takie jak adres
                     IP, informacje o urządzeniu, przeglądarce, czasie połączenia i
                     adresie podstrony, z której nastąpiło odwołanie. Podstawą
-                    przetwarzania jest art. 6 ust. 1 lit. f RODO, czyli nasz
-                    uzasadniony interes polegający na prezentacji materiałów i
-                    prawidłowym działaniu serwisu.
+                    załadowania filmów z YouTube jest art. 6 ust. 1 lit. a RODO,
+                    czyli zgoda. Pozostałe treści osadzone opieramy na art. 6 ust. 1
+                    lit. f RODO, czyli naszym uzasadnionym interesie polegającym na
+                    prezentacji materiałów i prawidłowym działaniu serwisu.
                   </li>
                 </ul>
               </section>
@@ -142,8 +146,29 @@
                   technicznych, w szczególności YouTube, mogą stosować własne pliki
                   cookies albo podobne technologie zgodnie z ich własnymi zasadami
                   prywatności. W przypadku materiałów wideo YouTube ich załadowanie
-                  następuje dopiero po wyrażeniu zgody przez użytkownika.
+                  następuje dopiero po wyrażeniu zgody przez użytkownika. Sama
+                  decyzja o zgodzie jest pamiętana w lokalnej pamięci przeglądarki
+                  i służy wyłącznie temu, aby nie pytać o nią przy każdym filmie.
                 </p>
+                <div
+                  v-if="consentReady"
+                  class="border border-black/10 bg-rally-snow/60 px-5 py-4"
+                >
+                  <p v-if="youtubeGranted">
+                    Zgoda na filmy z YouTube jest włączona w tej przeglądarce.
+                  </p>
+                  <p v-else>
+                    Zgoda na filmy z YouTube nie jest zapisana w tej przeglądarce.
+                  </p>
+                  <button
+                    v-if="youtubeGranted"
+                    type="button"
+                    class="mt-4 inline-flex items-center justify-center bg-rally-navy px-4 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-rally-navy-deep"
+                    @click="revokeYoutubeConsent"
+                  >
+                    Cofnij zgodę
+                  </button>
+                </div>
               </section>
 
               <section class="space-y-4">
@@ -269,4 +294,11 @@
 <script setup>
 import TheFooter from "../components/layout/TheFooter.vue";
 import TheHeader from "../components/layout/TheHeader.vue";
+import { useYoutubeConsent } from "../composables/useYoutubeConsent.js";
+
+const {
+  granted: youtubeGranted,
+  ready: consentReady,
+  revoke: revokeYoutubeConsent,
+} = useYoutubeConsent();
 </script>

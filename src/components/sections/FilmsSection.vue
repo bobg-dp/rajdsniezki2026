@@ -14,8 +14,8 @@
             Filmy
           </h2>
           <p class="mt-4 max-w-2xl text-sm leading-6 text-rally-snow-dim/75">
-            Prezentacje tras są nagrane osobno dla każdej rangi. Film ładuje
-            się dopiero po zgodzie, w trybie podwyższonej prywatności.
+            Prezentacje tras są nagrane osobno dla każdej rangi. Jedna zgoda
+            odblokowuje wszystkie filmy, w trybie podwyższonej prywatności.
           </p>
         </div>
         <a

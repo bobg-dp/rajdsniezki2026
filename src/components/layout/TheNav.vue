@@ -24,6 +24,14 @@
             <ChevronIcon />
           </RouterLink>
           <div :class="dropdownClass" class="min-w-72">
+            <a
+              :href="tier.resultsUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              :class="itemClass"
+            >
+              Wyniki
+            </a>
             <RouterLink :to="`/${tier.slug}/tablica`" :class="itemClass">
               Elektroniczna Tablica Ogłoszeń
             </RouterLink>

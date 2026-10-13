@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed inset-x-0 top-0 z-50 flex flex-col transition-[filter] duration-300"
+    class="fixed inset-x-0 top-0 z-100 flex flex-col transition-[filter] duration-300"
     :class="scrolled ? 'shadow-lg' : 'shadow md:shadow-none'"
   >
     <!-- Górny pasek -->
@@ -69,6 +69,8 @@
         <a
           v-if="resultsUrl"
           :href="resultsUrl"
+          target="_blank"
+          rel="noopener noreferrer"
           class="ml-4 bg-rally-orange px-5 py-2.5 font-display text-sm font-bold uppercase tracking-wider text-rally-navy transition-colors duration-200 hover:bg-rally-orange-dark hover:text-white"
         >
           Wyniki online

@@ -58,6 +58,7 @@ export const tiers = [
     shortDescription: "Pełne OS-y, licencja sportowa, klasyfikacja cyklu",
     accent: "orange",
     licenceRequired: true,
+    resultsUrl: "https://rallydevil.com/rajd/rajd-sniezki-rajd-okregowy/wyniki",
     // Przyrostek `OnLight` / `OnDark` mówi o tle, na którym logo ma stanąć,
     // nie o kolorze samego pliku. Gdy jedna wersja czyta się na obu tłach,
     // oba pola wskazują ten sam plik.
@@ -82,6 +83,7 @@ export const tiers = [
     shortDescription: "Skrócony format na tych samych odcinkach",
     accent: "snow",
     licenceRequired: true,
+    resultsUrl: "https://rallydevil.com/rajd/rajd-sniezki-2026-rally-sprint/wyniki",
     cycles: [
       {
         // Wersja na jasne tło ma własny kafel w kolorze cyklu, dlatego nie jest
@@ -105,6 +107,7 @@ export const tiers = [
     shortDescription: "Start bez licencji sportowej, seryjnym samochodem",
     accent: "steel",
     licenceRequired: false,
+    resultsUrl: "https://rallydevil.com/rajd/rajd-sniezki-2026/wyniki",
     cycles: [
       {
         srcOnLight: "/assets/cycles/mistrz-karkonoszy.webp",
@@ -130,4 +133,4 @@ export function getTier(key) {
   return tiersByKey[key];
 }
 
-export const resultsUrl = null; // TODO: podmień na link do wyników po uruchomieniu rajdu w systemie.
+export const resultsUrl = "https://rallydevil.com/rajd/rajd-sniezki-2026/wyniki";

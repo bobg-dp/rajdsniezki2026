@@ -23,6 +23,8 @@
       <a
         v-if="resultsUrl"
         :href="resultsUrl"
+        target="_blank"
+        rel="noopener noreferrer"
         class="ml-auto bg-rally-orange px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-rally-navy"
       >
         Wyniki online
@@ -65,6 +67,15 @@
         >
           {{ tier.navLabel }}
         </RouterLink>
+        <a
+          :href="tier.resultsUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          :class="subItemClass"
+          @click="$emit('close')"
+        >
+          Wyniki
+        </a>
         <RouterLink
           :to="`/${tier.slug}/tablica`"
           :class="subItemClass"

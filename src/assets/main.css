@@ -34,7 +34,7 @@ body {
   background-color: #fff;
   color: var(--color-rally-navy);
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--youtube-consent-offset, 0px);
   overflow-x: hidden;
 }
 

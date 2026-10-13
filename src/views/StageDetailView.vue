@@ -189,7 +189,7 @@
           <div class="bg-rally-navy-ink p-3 md:p-5">
             <div class="overflow-hidden rounded-[1.5rem] bg-black aspect-video">
               <div
-                v-if="!isVideoConsentGranted"
+                v-if="!youtubeConsentGranted"
                 class="flex h-full w-full flex-col justify-between bg-[radial-gradient(circle_at_top,rgba(247,96,3,0.18),transparent_45%),linear-gradient(145deg,#181818,#050505)] p-6 text-white md:p-8"
               >
                 <div>
@@ -197,11 +197,11 @@
                     Zewnętrzne wideo
                   </p>
                   <h3 class="mt-3 font-display text-2xl font-black uppercase leading-none md:text-3xl">
-                    Załaduj materiał z YouTube po wyrażeniu zgody
+                    Film z YouTube
                   </h3>
                   <p class="mt-4 max-w-2xl text-sm leading-6 text-rally-snow-dim md:text-base md:leading-7">
-                    Film nie jest ładowany automatycznie. Kliknięcie przycisku
-                    spowoduje połączenie z YouTube w trybie podwyższonej prywatności.
+                    Odtworzenie łączy się z YouTube w trybie podwyższonej
+                    prywatności i odblokowuje pozostałe filmy na stronie.
                   </p>
                 </div>
 
@@ -209,16 +209,16 @@
                   <button
                     type="button"
                     class="inline-flex items-center justify-center rounded-full bg-rally-orange px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-rally-navy transition-colors hover:bg-rally-orange-dark"
-                    @click="grantVideoConsent"
+                    @click="grantYoutubeConsent"
                   >
-                    Wyrażam zgodę i odtwarzam
+                    Odtwórz
                   </button>
-                  <a
-                    :href="privacyPolicyPath"
+                  <RouterLink
+                    to="/polityka-prywatnosci"
                     class="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors hover:border-rally-orange/60 hover:text-rally-orange"
                   >
                     Zasady prywatności
-                  </a>
+                  </RouterLink>
                 </div>
               </div>
 
@@ -271,14 +271,14 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import TheHeader from "../components/layout/TheHeader.vue";
 import TheFooter from "../components/layout/TheFooter.vue";
 import StageRouteMap from "../components/ui/StageRouteMap.vue";
+import { useYoutubeConsent } from "../composables/useYoutubeConsent.js";
 import { getStageBySlug } from "../data/stages.js";
 import { EVENT_FULL_NAME, tierKeyFromQuery, tiersByKey } from "../data/eventConfig.js";
 import { formatStageDistance } from "../utils/stageShape.js";
 
 const route = useRoute();
 const router = useRouter();
-const isVideoConsentGranted = ref(false);
-const privacyPolicyPath = "/polityka-prywatnosci";
+const { granted: youtubeConsentGranted, grant: grantYoutubeConsent } = useYoutubeConsent();
 
 const stage = computed(() => getStageBySlug(route.params.slug));
 
@@ -336,7 +336,4 @@ const privacyEnhancedVideoUrl = computed(() => {
   );
 });
 
-function grantVideoConsent() {
-  isVideoConsentGranted.value = true;
-}
 </script>
