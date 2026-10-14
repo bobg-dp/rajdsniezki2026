@@ -50,7 +50,7 @@
               </p>
               <div class="mt-8 flex flex-wrap items-center gap-4">
                 <a
-                  href="https://insidepzm.pl/events/media-accreditation/1047"
+                  href="https://insidepzm.pl/events/media-accreditation/1153"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center justify-center rounded-full bg-rally-navy px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-white transition-colors duration-200 hover:bg-rally-orange-dark"
@@ -226,7 +226,7 @@ const mediaOfficeHours = [
     places: [
       { name: "Biuro Rajdu", hours: "08:00–16:00" },
       { name: "Biuro prasowe", hours: "08:00–16:00" },
-      { name: "Akredytacje dla mediów", hours: "08:00–14:00" },
+      { name: "Akredytacje dla mediów", hours: "08:00–11:00" },
       { name: "Park serwisowy", hours: null },
     ],
   },
