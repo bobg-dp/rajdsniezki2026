@@ -7,6 +7,44 @@ import { EVENT_FULL_NAME, schedule, tiers } from "./eventConfig.js";
  */
 const newsArticles = [
   {
+    id: 3,
+    slug: "listy-zgloszen-opublikowane",
+    title: "Listy zgłoszeń opublikowane",
+    excerpt:
+      "Listy zgłoszeń Rajdu Śnieżki są już dostępne. Sprawdźcie załogi Rajdu Okręgowego, Rally Sprintu i KJS.",
+    category: "Listy zgłoszeń",
+    breadcrumbLabel: "Listy zgłoszeń",
+    dateLabel: "14 października 2026",
+    publishedAt: "2026-10-14",
+    modifiedAt: "2026-10-14",
+    image: "/assets/news/listy-zgloszen-opublikowane.jpg",
+    imageAlt:
+      "Grafika Rajdu Śnieżki: listy zgłoszeń opublikowane, rajdowy samochód na tle karkonoskiego lasu.",
+    body: [
+      "Załogi Rajdu Śnieżki 2026 można już zobaczyć na listach zgłoszeń. Opublikowaliśmy składy wszystkich trzech rang: Rajdu Okręgowego, Rally Sprintu i Konkursowej Jazdy Samochodem.",
+      "Listy Rajdu Okręgowego i Rally Sprintu są w PDF na Elektronicznej Tablicy Ogłoszeń. Listę KJS znajdziecie na Rally Devil.",
+      "Najbardziej aktualna wersja zawsze jest na tablicy ogłoszeń danej rangi.",
+      "Widzimy się na starcie w Karkonoszach.",
+    ],
+    ctas: [
+      {
+        label: "Lista zgłoszeń RO",
+        to: "https://app-cdn.sportity.com/3fec3e38-1c1b-488b-9974-9c16ef890f41/926bebbd-c65e-4c52-8a7b-744ee01ff02d_Lista%20zg%C5%82oszen%CC%81%20RO.pdf",
+        theme: "accent",
+      },
+      {
+        label: "Lista zgłoszeń RS",
+        to: "https://app-cdn.sportity.com/c5effb27-6d96-4b15-91a9-bedaf3eb2200/b1b05a51-edfa-4aa7-a07d-d41d484e01fd_Lista%20zg%C5%82oszen%CC%81%20RPP%201.pdf",
+        theme: "dark",
+      },
+      {
+        label: "Lista zgłoszeń KJS",
+        to: "https://rallydevil.com/rajd/rajd-sniezki-2026",
+        theme: "dark",
+      },
+    ],
+  },
+  {
     id: 2,
     slug: "zostaly-tylko-3-dni-na-zapisy",
     title: "Zostały tylko 3 dni na zapisy do RO i RS",
@@ -34,7 +72,7 @@ const newsArticles = [
       },
       {
         label: "Zapisy KJS do 16 października",
-        to: "https://rallydevil.com/rajd/rajd-sniezki-2026-kjs",
+        to: "https://rallydevil.com/rajd/rajd-sniezki-2026",
         theme: "dark",
       },
     ],
@@ -55,7 +93,9 @@ const newsArticles = [
       `Automobilklub Karkonosze rozpoczyna przygotowania do Rajdu Śnieżki – rajdu samochodowego rozgrywanego na asfaltowych drogach Karkonoszy. Impreza odbędzie się w dniach ${schedule.dateLabel}.`,
       `Impreza zostanie rozegrana w trzech rangach: ${tiers
         .map((tier) => `${tier.name} (${tier.code})`)
-        .join(", ")}. Dzięki temu w jednym weekendzie zmieszczą się zarówno załogi z licencjami sportowymi, jak i kierowcy stawiający pierwsze kroki w sporcie samochodowym.`,
+        .join(
+          ", ",
+        )}. Dzięki temu w jednym weekendzie zmieszczą się zarówno załogi z licencjami sportowymi, jak i kierowcy stawiający pierwsze kroki w sporcie samochodowym.`,
       "Na mapie rajdu znalazły się dwa odcinki specjalne: Michałowice w gminie Piechowice oraz odcinek na drogach gminy Stara Kamienica. Oba przebiegi rozegrają wszystkie trzy poziomy imprezy. Rajd Okręgowy jedzie do swojej mety lotnej, a Rally Sprint i Konkursowa Jazda Samochodem kończą wcześniej na tych samych drogach.",
       "Regulamin uzupełniający oraz szczegółowy harmonogram zostaną opublikowane na tej stronie oraz na Elektronicznej Tablicy Ogłoszeń. Zapraszamy do śledzenia aktualności.",
     ],

@@ -50,7 +50,7 @@
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
           <component
             v-for="cta in article.ctas"
             :key="cta.to"
