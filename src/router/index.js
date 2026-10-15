@@ -1,8 +1,14 @@
 import HomeView from "../views/HomeView.vue";
 import { allNews } from "../data/news.js";
-import { EVENT_FULL_NAME, location, schedule, tiers } from "../data/eventConfig.js";
+import {
+  EVENT_EDITION,
+  EVENT_FULL_NAME,
+  OFFICIAL_SITE_NAME,
+  schedule,
+  tiers,
+} from "../data/eventConfig.js";
 
-const SUFFIX = `| ${EVENT_FULL_NAME}`;
+const SUFFIX = `| ${OFFICIAL_SITE_NAME}`;
 
 /**
  * Strefa zawodnika jest identyczna dla każdego poziomu imprezy (RO / RS / KJS),
@@ -83,8 +89,8 @@ export const routes = [
     name: "home",
     component: HomeView,
     meta: {
-      title: `${EVENT_FULL_NAME} | Rajd Okręgowy, Rally Sprint i KJS`,
-      description: `Oficjalna strona Rajdu Śnieżki ${schedule.dateLabel} w Karkonoszach. Rajd Okręgowy, Rally Sprint i Konkursowa Jazda Samochodem na odcinkach Michałowice i Stara Kamienica.`,
+      title: `${OFFICIAL_SITE_NAME} ${EVENT_EDITION} | Rajd Okręgowy, Rally Sprint i KJS`,
+      description: `Oficjalna strona Rajdu Śnieżki ${EVENT_EDITION}, ${schedule.dateLabel}, Karkonosze. Rajd Okręgowy, Rally Sprint i Konkursowa Jazda Samochodem. Harmonogram, listy zgłoszeń, mapy i komunikaty organizatora.`,
       image: "/logo.png",
       schemaType: "SportsEvent",
       breadcrumbs: [{ name: "Strona główna", path: "/" }],
@@ -304,8 +310,6 @@ export const routes = [
     },
   },
 ];
-
-export { location };
 
 export function scrollBehavior(to, from, savedPosition) {
   if (savedPosition) return savedPosition;

@@ -3,6 +3,7 @@ import { getStageBySlug } from "../data/stages.js";
 import {
   CONTACT_EMAIL,
   EVENT_FULL_NAME,
+  OFFICIAL_SITE_NAME,
   SITE_URL as EVENT_SITE_URL,
   location,
   organizer,
@@ -12,7 +13,7 @@ import {
 
 export const SITE_URL = EVENT_SITE_URL;
 export const SITE_NAME = EVENT_FULL_NAME;
-const DEFAULT_DESCRIPTION = `${EVENT_FULL_NAME} – rajd samochodowy Automobilklubu Karkonosze w trzech rangach: ${tiers
+const DEFAULT_DESCRIPTION = `${OFFICIAL_SITE_NAME} ${EVENT_FULL_NAME}. Rajd samochodowy Automobilklubu Karkonosze w trzech rangach: ${tiers
   .map((tier) => tier.code)
   .join(", ")}. Odcinki specjalne w rejonie ${location.region}.`;
 const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
@@ -84,7 +85,7 @@ function buildPageSchema(canonicalUrl, seo) {
   if (seo.schemaType === 'NewsArticle') {
     return {
       "@type": "NewsArticle",
-      headline: seo.title,
+      headline: seo.headline || seo.title,
       description: seo.description,
       image: [toAbsoluteUrl(seo.image)],
       datePublished: seo.datePublished,
@@ -149,7 +150,7 @@ export function resolveSeo(route) {
 
     if (!article) {
       return {
-        title: `Artykuł nie został znaleziony | ${SITE_NAME}`,
+        title: `Artykuł nie został znaleziony | ${OFFICIAL_SITE_NAME}`,
         description: DEFAULT_DESCRIPTION,
         image: DEFAULT_IMAGE,
         breadcrumbs: [
@@ -162,7 +163,8 @@ export function resolveSeo(route) {
     }
 
     return {
-      title: article.title,
+      title: `${article.title} | ${OFFICIAL_SITE_NAME}`,
+      headline: article.title,
       description: article.excerpt,
       image: article.image,
       schemaType: 'NewsArticle',
@@ -184,7 +186,7 @@ export function resolveSeo(route) {
 
     if (!stage) {
       return {
-        title: `Odcinek nie został znaleziony | ${SITE_NAME}`,
+        title: `Odcinek nie został znaleziony | ${OFFICIAL_SITE_NAME}`,
         description: DEFAULT_DESCRIPTION,
         image: DEFAULT_IMAGE,
         breadcrumbs: [{ name: "Strona główna", path: "/" }],
@@ -194,7 +196,7 @@ export function resolveSeo(route) {
     }
 
     return {
-      title: `${stage.headline} | ${SITE_NAME}`,
+      title: `${stage.headline} | ${OFFICIAL_SITE_NAME}`,
       description: `${stage.headline} podczas ${SITE_NAME}: Rajd Okręgowy, Rally Sprint i KJS. ${stage.dateLabel}, ${stage.distanceKm.toFixed(2)} km. Sprawdź zarys trasy oraz szybkie linki do startu i mety.`,
       image: DEFAULT_IMAGE,
       breadcrumbs: [
@@ -226,7 +228,7 @@ export function buildHeadForRoute(route) {
     },
     {
       "@type": "WebSite",
-      name: SITE_NAME,
+      name: OFFICIAL_SITE_NAME,
       url: SITE_URL,
       inLanguage: "pl-PL",
     },

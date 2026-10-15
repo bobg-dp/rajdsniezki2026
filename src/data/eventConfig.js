@@ -9,6 +9,7 @@
 export const EVENT_NAME = "Rajd Śnieżki";
 export const EVENT_EDITION = "2026";
 export const EVENT_FULL_NAME = `${EVENT_NAME} ${EVENT_EDITION}`;
+export const OFFICIAL_SITE_NAME = "Oficjalna strona Rajdu Śnieżki";
 export const SITE_URL = "https://rajdsniezki.pl";
 export const CONTACT_EMAIL = "rajd@akkarkonosze.pl";
 
