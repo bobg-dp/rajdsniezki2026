@@ -71,6 +71,12 @@
             >
               {{ event.location }}
             </p>
+            <p
+              v-if="event.note"
+              class="mt-2 max-w-3xl text-sm leading-6 text-rally-steel"
+            >
+              {{ event.note }}
+            </p>
           </div>
         </div>
       </div>

@@ -409,7 +409,7 @@ const kjsProgram = [
   {
     shortDate: "17.10",
     dayOfWeek: "Sobota",
-    label: "Odbiór administracyjny",
+    label: "Odbiór administracyjny i zapoznanie z trasą",
     isRaceDay: true,
     events: [
       {
@@ -418,6 +418,12 @@ const kjsProgram = [
         location: "",
         timeHref:
           "https://pub-aed9945f8d6944a89851e3404a14a949.r2.dev/c9a66aa6-4a6f-4ef8-bf4d-1e9b07c32939/1791813334842_3.1._Dyrektor_KJS.pdf",
+      },
+      {
+        time: "08:30–16:00",
+        name: "Zapoznanie z trasą",
+        location: "",
+        note: "Zapoznanie odbywa się na drodze otwartej dla ruchu publicznego. Uczestnicy są zobowiązani do stosowania się do przepisów ustawy Prawo o ruchu drogowym. Kolejność zapoznania z trasą jest dowolna.",
       },
       { time: "10:00–15:00", name: "Badanie kontrolne BK", location: "" },
     ],
@@ -432,6 +438,12 @@ const kjsProgram = [
         time: "08:00",
         name: "Publikacja listy załóg dopuszczonych do startu",
         location: "",
+      },
+      {
+        time: "08:00",
+        name: "Odprawa uczestników",
+        location:
+          "„Galeria Sudecka”, al. Jana Pawła II 51, 58-500 Jelenia Góra",
       },
       { time: "09:10", name: "Start", location: "" },
       { time: "16:43", name: "Meta", location: "" },
