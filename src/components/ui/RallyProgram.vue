@@ -43,7 +43,17 @@
           class="flex items-start transition-colors hover:bg-gray-50"
         >
           <div class="w-40 shrink-0 border-r border-gray-100 px-4 py-4 md:w-56">
+            <a
+              v-if="event.timeHref"
+              :href="event.timeHref"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-display text-sm font-bold leading-snug text-red-600 underline decoration-red-600/40 underline-offset-2 hover:text-red-700"
+            >
+              {{ event.time }}
+            </a>
             <span
+              v-else
               class="font-display text-sm font-bold leading-snug text-rally-navy"
             >
               {{ event.time }}

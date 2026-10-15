@@ -84,32 +84,42 @@
 
             <template v-else-if="boardData">
               <section
-                v-if="publicationItems.length"
+                v-for="(group, groupIndex) in publicationGroups"
+                :key="group.key"
                 class="border border-gray-200 bg-white px-6 py-8 md:px-8"
               >
                 <div
-                  class="flex flex-col gap-2 md:flex-row md:items-start md:justify-between mb-6"
+                  class="flex items-start justify-between gap-4 mb-6"
                 >
                   <div>
                     <p
                       class="font-display font-bold uppercase text-rally-orange text-xs tracking-widest mb-2"
                     >
-                      Aktualne publikacje
+                      {{ group.eyebrow }}
                     </p>
                     <h2
                       class="font-display font-bold uppercase text-rally-navy text-2xl"
                     >
-                      Dokumenty
+                      {{ group.title }}
                     </h2>
-                  </div>
-                  <div
-                    v-if="fetchedAtLabel"
-                    class="flex flex-col items-start gap-2 md:items-end"
-                  >
-                    <p class="text-sm font-medium uppercase tracking-wider text-gray-800">
+                    <p
+                      v-if="groupIndex === 0 && fetchedAtLabel"
+                      class="mt-3 text-sm font-medium uppercase tracking-wider text-gray-800"
+                    >
                       Ostatnie odświeżenie: {{ fetchedAtLabel }}
                     </p>
+                  </div>
+                  <div class="flex shrink-0 flex-col items-end gap-2">
+                    <div
+                      v-if="group.count"
+                      class="inline-flex h-11 min-w-11 items-center justify-center bg-rally-orange px-2 font-display text-lg font-black text-rally-navy"
+                      :title="group.countLabel"
+                    >
+                      <span aria-hidden="true">{{ group.count }}</span>
+                      <span class="sr-only">{{ group.countLabel }}</span>
+                    </div>
                     <a
+                      v-if="groupIndex === 0"
                       href="https://driftingpixel.com"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -128,7 +138,7 @@
 
                 <div class="space-y-4">
                   <article
-                    v-for="item in publicationItems"
+                    v-for="item in group.items"
                     :key="item.id"
                     class="border border-gray-200 bg-gray-50 p-5"
                   >
@@ -150,13 +160,38 @@
                     </h3>
 
                     <p
-                      v-if="item.type === 'Text'"
+                      v-if="item.type === 'Text' && item.text"
                       class="text-rally-steel leading-relaxed whitespace-pre-line"
                     >
                       {{ item.text }}
                     </p>
 
-                    <template v-else>
+                    <div
+                      v-if="item.type === 'Text' && attachmentFiles(item).length"
+                      class="mt-5 space-y-4"
+                    >
+                      <div
+                        v-for="file in attachmentFiles(item)"
+                        :key="file.id"
+                      >
+                        <p
+                          v-if="file.originalFileName || file.name"
+                          class="mb-3 text-sm text-rally-steel"
+                        >
+                          {{ file.originalFileName || file.name }}
+                        </p>
+                        <a
+                          :href="file.url"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center justify-center bg-rally-navy px-5 py-3 font-display font-bold uppercase text-xs tracking-wider text-white hover:bg-rally-steel transition-colors"
+                        >
+                          Otwórz dokument
+                        </a>
+                      </div>
+                    </div>
+
+                    <template v-else-if="item.type !== 'Text'">
                       <p
                         v-if="item.originalFileName"
                         class="text-rally-steel text-sm mb-4"
@@ -316,6 +351,49 @@ const publicationItems = computed(
   () => boardData.value?.items?.filter((item) => item.type !== "Folder") ?? [],
 );
 
+const publicationGroups = computed(() => {
+  if (!publicationItems.value.length) {
+    return [];
+  }
+
+  if (props.board !== "kjs") {
+    return [
+      {
+        key: "publications",
+        eyebrow: "Aktualne publikacje",
+        title: "Dokumenty",
+        items: publicationItems.value,
+      },
+    ];
+  }
+
+  const communiques = publicationItems.value.filter((item) => item.type === "Text");
+  const documents = publicationItems.value.filter((item) => item.type !== "Text");
+
+  return [
+    communiques.length
+      ? {
+          key: "communiques",
+          eyebrow: "Aktualne publikacje",
+          title: "Komunikaty",
+          items: communiques,
+          count: communiques.length,
+          countLabel: countLabel(communiques.length, "komunikat", "komunikaty", "komunikatów"),
+        }
+      : null,
+    documents.length
+      ? {
+          key: "documents",
+          eyebrow: "Pliki do pobrania",
+          title: "Dokumenty",
+          items: documents,
+          count: documents.length,
+          countLabel: countLabel(documents.length, "dokument", "dokumenty", "dokumentów"),
+        }
+      : null,
+  ].filter(Boolean);
+});
+
 const fetchedAtLabel = computed(() =>
   formatTimestamp(boardData.value?.fetchedAt),
 );
@@ -338,6 +416,29 @@ function formatTimestamp(value) {
   }
 
   return dateTimeFormatter.format(date);
+}
+
+function countLabel(count, one, few, many) {
+  if (count === 1) {
+    return `1 ${one}`;
+  }
+
+  const lastTwoDigits = count % 100;
+  const lastDigit = count % 10;
+
+  if (
+    lastDigit >= 2 &&
+    lastDigit <= 4 &&
+    (lastTwoDigits < 12 || lastTwoDigits > 14)
+  ) {
+    return `${count} ${few}`;
+  }
+
+  return `${count} ${many}`;
+}
+
+function attachmentFiles(item) {
+  return (item.children ?? []).filter((child) => child.url);
 }
 
 function itemTypeLabel(item) {

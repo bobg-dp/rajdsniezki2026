@@ -211,6 +211,38 @@ function toDocument(record, fallbackName) {
   };
 }
 
+function announcementAttachments(record, title) {
+  const listed = asArray(pick(record, ["attachments", "files", "documents"]) ?? []);
+  const single = asObject(pick(record, ["file", "attachment", "document"]));
+  const records = [...listed];
+
+  if (single) {
+    records.push(single);
+  }
+
+  const directUrl = fileUrl(record);
+
+  if (
+    directUrl &&
+    !records.some((item) => fileUrl(asObject(item)) === directUrl)
+  ) {
+    records.push({
+      url: directUrl,
+      name:
+        asText(pick(record, ["fileName", "file_name", "orig_file"])) ?? title,
+    });
+  }
+
+  return records
+    .map((attachment) =>
+      toDocument(
+        asObject(attachment) ?? {},
+        asText(pick(asObject(attachment), ["fileName", "name"])) ?? title,
+      ),
+    )
+    .filter((attachment) => attachment?.url);
+}
+
 function toAnnouncement(record, index) {
   const title = asText(pick(record, ["title", "name"])) ?? "Komunikat";
   const text = asText(
@@ -218,16 +250,7 @@ function toAnnouncement(record, index) {
   );
   const priority = pick(record, ["priority", "level", "severity"]);
   const label = priorityLabel(priority);
-  const attachments = asArray(
-    pick(record, ["attachments", "files", "documents"]) ?? [],
-  )
-    .map((attachment) =>
-      toDocument(
-        asObject(attachment) ?? {},
-        asText(pick(asObject(attachment), ["fileName", "name"])) ?? title,
-      ),
-    )
-    .filter(Boolean);
+  const attachments = announcementAttachments(record, title);
 
   return {
     id: asText(pick(record, ["id"])) ?? `rd-announcement-${index}`,
@@ -276,13 +299,19 @@ export function normalizeRallyDevilBoard(payload) {
   }
 
   const announcementItems = announcements.map(toAnnouncement);
-  const documents = dedupeDocuments([
-    ...files.map((file) => toDocument(file)).filter(Boolean),
-    ...announcementItems.flatMap((item) => item.attachments),
-  ]);
+  const attachmentUrls = new Set(
+    announcementItems.flatMap((item) =>
+      item.attachments.map((attachment) => attachment.url),
+    ),
+  );
+  const documents = dedupeDocuments(
+    files
+      .map((file) => toDocument(file))
+      .filter((file) => file?.url && !attachmentUrls.has(file.url)),
+  );
 
   const items = [
-    ...announcementItems.map(({ attachments, ...item }) => item),
+    ...announcementItems,
     ...documents,
   ].sort((first, second) => {
     if (first.priority !== second.priority) {
@@ -306,6 +335,14 @@ export function normalizeRallyDevilBoard(payload) {
     url: item.url ?? null,
     orig_file: item.originalFileName ?? null,
     text: item.text ?? null,
+    children: (item.attachments ?? []).map((attachment) => ({
+      id: attachment.id,
+      name: attachment.name,
+      type: attachment.type,
+      url: attachment.url ?? null,
+      orig_file: attachment.originalFileName ?? null,
+      text: null,
+    })),
   }));
 }
 

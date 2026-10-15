@@ -389,9 +389,71 @@ const rsProgram = [
   },
 ];
 
+const kjsProgram = [
+  {
+    shortDate: "03.10",
+    dayOfWeek: "Sobota",
+    label: "Otwarcie zapisów",
+    isRaceDay: false,
+    events: [{ time: "", name: "Otwarcie listy zgłoszeń", location: "" }],
+  },
+  {
+    shortDate: "16.10",
+    dayOfWeek: "Piątek",
+    label: "Zamknięcie zapisów",
+    isRaceDay: false,
+    events: [
+      { time: "23:59", name: "Zamknięcie listy zgłoszeń", location: "" },
+    ],
+  },
+  {
+    shortDate: "17.10",
+    dayOfWeek: "Sobota",
+    label: "Odbiór administracyjny",
+    isRaceDay: true,
+    events: [
+      {
+        time: "08:00–11:00",
+        name: "Odbiór administracyjny",
+        location: "",
+        timeHref:
+          "https://pub-aed9945f8d6944a89851e3404a14a949.r2.dev/c9a66aa6-4a6f-4ef8-bf4d-1e9b07c32939/1791813334842_3.1._Dyrektor_KJS.pdf",
+      },
+      { time: "10:00–15:00", name: "Badanie kontrolne BK", location: "" },
+    ],
+  },
+  {
+    shortDate: "18.10",
+    dayOfWeek: "Niedziela",
+    label: "Dzień rajdu",
+    isRaceDay: true,
+    events: [
+      {
+        time: "08:00",
+        name: "Publikacja listy załóg dopuszczonych do startu",
+        location: "",
+      },
+      { time: "09:10", name: "Start", location: "" },
+      { time: "16:43", name: "Meta", location: "" },
+      {
+        time: "17:15",
+        name: "Opublikowanie klasyfikacji prowizorycznej",
+        location: "",
+      },
+      {
+        time: "18:15",
+        name: "Opublikowanie klasyfikacji końcowej",
+        location: "",
+      },
+      { time: "18:30", name: "Rozdanie nagród", location: "" },
+    ],
+  },
+];
+
 const programs = {
   ro: roProgram,
   rs: rsProgram,
+  kjs: kjsProgram,
 };
 
 export function getRallyProgram(tierKey) {
