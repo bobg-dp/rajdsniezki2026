@@ -84,7 +84,8 @@ export const tiers = [
     shortDescription: "Skrócony format na tych samych odcinkach",
     accent: "snow",
     licenceRequired: true,
-    resultsUrl: "https://rallydevil.com/rajd/rajd-sniezki-2026-rally-sprint/wyniki",
+    resultsUrl:
+      "https://rallydevil.com/rajd/rajd-sniezki-2026-rally-sprint/wyniki",
     cycles: [
       {
         // Wersja na jasne tło ma własny kafel w kolorze cyklu, dlatego nie jest
@@ -104,7 +105,7 @@ export const tiers = [
     navLabel: "Zawodnicy KJS",
     tagline: "Pierwszy krok w rajdach – bez licencji sportowej",
     description:
-      "Konkursowa Jazda Samochodem to najprostsza droga do startu w rajdzie. Wystarczy prawo jazdy, seryjne auto i licencja KJS wydawana na miejscu.",
+      "Konkursowa Jazda Samochodem to najprostsza droga do startu w rajdzie. Wystarczy prawo jazdy, seryjne auto, kask, przegląd techniczny i ubezpieczenie OC pojazdu",
     shortDescription: "Start bez licencji sportowej, seryjnym samochodem",
     accent: "steel",
     licenceRequired: false,
